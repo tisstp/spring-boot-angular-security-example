@@ -29,8 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-      .anyRequest().authenticated();
-
+//      .anyRequest()
+//      .authenticated();
+;
     // disable page caching
     http.headers().cacheControl();
   }

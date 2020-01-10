@@ -14,6 +14,11 @@ const log = new Logger('App');
 export class AppComponent implements OnInit {
   title = 'angular';
 
+  request = {
+    name: 'Sathaphorn',
+    surname: 'Sunthornpan'
+  };
+
   constructor(
     private authService: AuthenticationService,
     private exampleService: ExampleService
@@ -31,14 +36,14 @@ export class AppComponent implements OnInit {
 
   onWithoutCsrf() {
     log.debug('onWithoutCsrf');
-    this.authService.withCsrfIgnore({}).subscribe((val) => {
+    this.authService.withCsrfIgnore(this.request).subscribe((val) => {
       log.debug('res:', val);
     });
   }
 
   onWithCsrf() {
     log.debug('onWithCsrf');
-    this.exampleService.withCsrfXsrf({}).subscribe((val) => {
+    this.exampleService.withCsrfXsrf(this.request).subscribe((val) => {
       log.debug('res:', val);
     });
   }
