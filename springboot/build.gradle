@@ -24,7 +24,7 @@ ext {
 }
 
 configurations.all {
-//  <!-- exclude logback , add log4j2 -->
+  /*<!-- exclude logback , add log4j2 -->*/
   exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
 
@@ -32,7 +32,11 @@ dependencies {
   compileOnly "org.projectlombok:lombok:${lombokVersion}"
   annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
-//	implementation 'org.modelmapper:modelmapper:2.3.5's
+//	implementation 'org.modelmapper:modelmapper:2.3.5'
+
+/*<!-- spring-boot-starter-web -> spring-boot-starter-json -> jackson-databind : included by spring boot -->
+  implementation 'com.fasterxml.jackson.core:jackson-databind' */
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
 
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'

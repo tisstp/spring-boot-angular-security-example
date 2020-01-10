@@ -1,0 +1,36 @@
+Configuration:
+  status: debug
+
+  appenders:
+    Console:
+      name: LogToConsole
+      PatternLayout:
+        Pattern: "%d{yyyy/MM/dd HH:mm:ss} %r [%-6p] %C{3}.%M(%F:%L) – %m%n"
+
+    RollingFile:
+      - name: LogToRollingFile
+        fileName: logs/app.log
+        filePattern: "logs/$${date:yyyy-MM}/${Filename}-%d{-dd-MMMM-yyyy}-%i.log.gz"
+        PatternLayout:
+          pattern: "%d{yyyy/MM/dd HH:mm:ss} %r [%-6p] %C{3}.%M(%F:%L) – %m%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 10MB
+        DefaultRollOverStrategy:
+          max: 10
+
+  Loggers:
+    logger:
+      - name: com.tisstp.example.securitydemo
+        level: debug
+        additivity: false
+        includeLocation: true
+        AppenderRef:
+          - ref: LogToConsole
+          - ref: LogToRollingFile
+
+    Root:
+      level: info
+      AppenderRef:
+        - ref: LogToConsole
+        - ref: LogToRollingFile
