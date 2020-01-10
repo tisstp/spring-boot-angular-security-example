@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.core.env.Environment;
 
+import lombok.extern.log4j.Log4j2;
 
+
+@Log4j2
 @SpringBootApplication
 public class SecurityDemoApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
@@ -20,7 +23,7 @@ public class SecurityDemoApplication extends SpringBootServletInitializer implem
 
   @Override
   public void run(String... args) throws Exception {
-    System.out.println(String.format("Server port(property): %s", env.getProperty("server.port")));
+    log.info(String.format("Server port(property): %s", env.getProperty("server.port")));
   }
 
 }
