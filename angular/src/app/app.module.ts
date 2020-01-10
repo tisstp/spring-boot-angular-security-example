@@ -1,5 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ApiPrefixInterceptor } from 'src/app/core/http/api-prefix.interceptor';
 
 import { AppComponent } from './app.component';
 
@@ -10,7 +12,10 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
