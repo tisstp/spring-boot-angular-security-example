@@ -16,6 +16,8 @@ import lombok.extern.log4j.Log4j2;
 /**
  * @author sathaphorn.stp (Tis)
  * @since 11-01-2020, 1:51 PM
+ *
+ * CORS (Cross-Origin Resource Sharing) header.
  */
 @Log4j2
 @Configuration
