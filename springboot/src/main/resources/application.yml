@@ -6,10 +6,6 @@ server:
     context-path: /api
   port: 9000
 
-logging:
-  level:
-    web: debug
-
 spring:
   profiles:
     active: dev
