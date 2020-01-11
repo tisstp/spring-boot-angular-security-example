@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j2;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private static final String[] CSRF_IGNORE = {"/signin/**", "/signup/**"};
+  private static final String[] CSRF_IGNORE = {"/auth"};
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
