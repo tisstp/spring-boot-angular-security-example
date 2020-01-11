@@ -1,0 +1,5 @@
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-origins: http://localhost:4200, http://localhost:9000

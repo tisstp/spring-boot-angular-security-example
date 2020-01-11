@@ -1,3 +1,6 @@
+# Documents for apllication properties
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#core-properties
+
 server:
   servlet:
     context-path: /api
