@@ -31,6 +31,7 @@ public class CustomCsrfFilter extends OncePerRequestFilter {
     if (csrf != null) {
       log.info(String.format("token: %s", csrf.getToken()));
       Cookie cookie = new Cookie(CSRF_COOKIE_NAME, csrf.getToken());
+      cookie.setHttpOnly(false);
       cookie.setPath("/");
       response.addCookie(cookie);
     }

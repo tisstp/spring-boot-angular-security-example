@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 import { Logger } from 'src/app/core';
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private exampleService: ExampleService
+    private exampleService: ExampleService,
   ) {
   }
 
@@ -36,14 +37,22 @@ export class AppComponent implements OnInit {
 
   onWithoutCsrf() {
     log.debug('onWithoutCsrf');
-    this.authService.withCsrfIgnore(this.request).subscribe((val) => {
-      log.debug('res:', val);
+    this.authService.withCsrfIgnore(this.request).subscribe((res: HttpResponse<any>) => {
+      log.debug('response from server:', res);
+      // log.debug('response headers', res.headers.keys());
     });
   }
 
   onWithCsrf() {
     log.debug('onWithCsrf');
     this.exampleService.withCsrfXsrf(this.request).subscribe((val) => {
+      log.debug('res:', val);
+    });
+  }
+
+  onHello() {
+    log.debug('onHello');
+    this.exampleService.hello(this.request).subscribe((val) => {
       log.debug('res:', val);
     });
   }

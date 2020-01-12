@@ -92,7 +92,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private CsrfTokenRepository csrfTokenRepository() {
-    return CookieCsrfTokenRepository.withHttpOnlyFalse();
+    CookieCsrfTokenRepository result = new CookieCsrfTokenRepository();
+    result.setCookieName(CustomCsrfFilter.CSRF_COOKIE_NAME);
+    result.setCookieHttpOnly(false);
+    result.setCookiePath("/");
+    return result;
   }
 
 }

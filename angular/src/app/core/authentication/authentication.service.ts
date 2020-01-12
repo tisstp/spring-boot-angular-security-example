@@ -12,7 +12,7 @@ export class AuthenticationService {
   ) { }
 
   withCsrfIgnore(obj: any): Observable<any> {
-    return this.http.post('/auth', obj);
+    return this.http.post('/api/auth', obj);
   }
 
 }
