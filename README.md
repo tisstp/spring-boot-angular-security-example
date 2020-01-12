@@ -55,6 +55,9 @@ curl --location --request POST 'http://localhost:9000/api/example' \
 # Authorization: Basic btoa(username:password)
 ```
 
+## Tips
+> Remove Cookies in use on the browser.
+
 ## Notes
 - set proxy: for enable HttpClientXsrfModule (relative path `/api` not absolute `http://`, `https://` or method `GET`, `HEAD`)
 
