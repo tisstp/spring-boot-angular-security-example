@@ -1,8 +1,7 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { TokenInterceptor } from 'src/app/core/http/token.interceptor';
-import { ApiPrefixInterceptor } from 'src/app/core/http/api-prefix.interceptor';
+import { httpInterceptorProviders } from 'src/app/core/http';
 
 import { AppComponent } from './app.component';
 
@@ -12,11 +11,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })
