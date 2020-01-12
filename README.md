@@ -1,6 +1,18 @@
 # spring-boot-angular-security-example
 Security Demo with Spring boot and Angular
 
+## Run Docker
+```bash
+# Start
+$ docker-compose up
+# Start by Detached mode: Run containers in the background, print new container names.
+$ docker-compose up -d
+
+# Stop
+$ docker-compose down
+# Stop & Remove image ('all': Remove all images used by any service)
+$ docker-compose down --rmi all
+```
 
 ## Run Application
 ```bash
@@ -45,6 +57,9 @@ curl --location --request POST 'http://localhost:9000/api/example' \
 
 ## Notes
 - set proxy: for enable HttpClientXsrfModule (relative path `/api` not absolute `http://`, `https://` or method `GET`, `HEAD`)
+
+> Angular platform `@Inject(PLATFORM_ID) private platform: string`. check rendering `browser` is browser rendering and
+> `server` is server side rendering
 
 ## StackOverFlow
 
