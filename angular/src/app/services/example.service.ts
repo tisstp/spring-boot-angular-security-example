@@ -12,7 +12,11 @@ export class ExampleService {
   ) { }
 
   withCsrfXsrf(obj: any): Observable<any> {
-    return this.http.post('/example', obj);
+    return this.http.post('/api/example', obj);
+  }
+
+  hello(obj: any): Observable<any> {
+    return this.http.put('http://localhost:9000/api/hello', obj);
   }
 
 }

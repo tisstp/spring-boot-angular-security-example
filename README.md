@@ -28,3 +28,10 @@ $ spring help run
 
 # gradle cli
 ```
+
+## Notes
+- set proxy: for enable HttpClientXsrfModule (relative path `/api` not absolute `http://`, `https://` or method `GET`, `HEAD`)
+
+## StackOverFlow
+
+[Angular 6 does not add X-XSRF-TOKEN header to http request](https://stackoverflow.com/questions/50510998/angular-6-does-not-add-x-xsrf-token-header-to-http-request/50511663#50511663)
