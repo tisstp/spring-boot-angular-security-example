@@ -61,6 +61,8 @@ curl --location --request POST 'http://localhost:9000/api/example' \
 > Angular platform `@Inject(PLATFORM_ID) private platform: string`. check rendering `browser` is browser rendering and
 > `server` is server side rendering
 
-## StackOverFlow
+## References
 
 [Angular 6 does not add X-XSRF-TOKEN header to http request](https://stackoverflow.com/questions/50510998/angular-6-does-not-add-x-xsrf-token-header-to-http-request/50511663#50511663)
+
+[Using Angular CLI to serve over https locally](https://medium.com/@richardr39/using-angular-cli-to-serve-over-https-locally-70dab07417c8)
