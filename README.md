@@ -29,6 +29,20 @@ $ spring help run
 # gradle cli
 ```
 
+## Request Example
+```bash
+curl --location --request POST 'http://localhost:9000/api/example' \
+--header 'Content-Type: application/json' \
+--header 'X-XSRF-TOKEN: a7857665-adc2-4c4e-a2af-c468bf56deea' \
+--header 'Authorization: Basic dXNlcjE6dXNlcjFQYXNz' \
+--data-raw '{
+    "name": "Sathaphorn",
+    "surname": "Sunthornpan"
+}'
+
+# Authorization: Basic btoa(username:password)
+```
+
 ## Notes
 - set proxy: for enable HttpClientXsrfModule (relative path `/api` not absolute `http://`, `https://` or method `GET`, `HEAD`)
 

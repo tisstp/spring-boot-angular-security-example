@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author sathaphorn.stp (Tis)
  * @since 11-01-2020, 5:59 PM
  *
- * Respnose for error unauthorized (status code 401)
+ * Handle Authentication for error unauthorized (status code 401)
  */
 @Component
 public class MyBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {

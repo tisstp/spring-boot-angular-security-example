@@ -3,6 +3,7 @@ package com.tisstp.example.securitydemo.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,15 @@ public class ExampleController {
   @PreAuthorize("hasRole('ROLE_USER')")
   public ResponseEntity<UserDto> example(@RequestBody UserRequest request) {
     log.debug("Example: Start");
+    log.debug(request);
+    return ResponseEntity.ok(UserMapper.toUserDto(request));
+  }
+
+  @PutMapping("/hello")
+  @ResponseBody
+  @PreAuthorize("hasRole('ROLE_USER')")
+  public ResponseEntity<UserDto> hello(@RequestBody UserRequest request) {
+    log.debug("Hello: Start");
     log.debug(request);
     return ResponseEntity.ok(UserMapper.toUserDto(request));
   }
