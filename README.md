@@ -66,3 +66,5 @@ curl --location --request POST 'http://localhost:9000/api/example' \
 [Angular 6 does not add X-XSRF-TOKEN header to http request](https://stackoverflow.com/questions/50510998/angular-6-does-not-add-x-xsrf-token-header-to-http-request/50511663#50511663)
 
 [Using Angular CLI to serve over https locally](https://medium.com/@richardr39/using-angular-cli-to-serve-over-https-locally-70dab07417c8)
+
+[Build a CRUD App with Angular 9 and Spring Boot 2.2](https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2)

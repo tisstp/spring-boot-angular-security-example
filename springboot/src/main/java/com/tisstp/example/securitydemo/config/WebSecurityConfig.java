@@ -15,9 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 
 import com.tisstp.example.securitydemo.security.CustomBasicAuthFilter;
+import com.tisstp.example.securitydemo.security.CustomCsrfFilter;
 import com.tisstp.example.securitydemo.security.MyBasicAuthenticationEntryPoint;
 import lombok.extern.log4j.Log4j2;
 
@@ -70,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers(CSRF_IGNORE).permitAll()
       .anyRequest().authenticated();
 
+    log.debug(String.format("CSRF: %s", csrfEnabled ? "enabled" : "disabled"));
     if (!csrfEnabled) {
       http.csrf().disable();
     } else {
@@ -81,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Custom security filter
     http
+      .addFilterAfter(new CustomCsrfFilter(), CsrfFilter.class) // Csrf filter in which we will add the cookie
       .addFilterAfter(new CustomBasicAuthFilter(), BasicAuthenticationFilter.class);
 
     // disable page caching
