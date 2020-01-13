@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -29,12 +30,19 @@ public class CustomCsrfFilter extends OncePerRequestFilter {
 
     CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
     if (csrf != null) {
-      log.info(String.format("token: %s", csrf.getToken()));
-      Cookie cookie = new Cookie(CSRF_COOKIE_NAME, csrf.getToken());
-      cookie.setHttpOnly(false);
-      cookie.setPath("/");
-      response.addCookie(cookie);
+      Cookie cookie = WebUtils.getCookie(request, CSRF_COOKIE_NAME);
+      String token = csrf.getToken();
+      log.debug(String.format("Token: %s", token));
+
+      if (cookie == null || token != null && !token.equals(cookie.getValue())) {
+        log.debug(String.format("Cookie: %s", cookie));
+        cookie = new Cookie(CSRF_COOKIE_NAME, token);
+        cookie.setHttpOnly(false);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+      }
     }
+
     filterChain.doFilter(request, response);
   }
 
