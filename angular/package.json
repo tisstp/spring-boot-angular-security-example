@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.js",
-    "start:ssl": "ng serve --proxy-config proxy.conf.js --ssl --ssl-key localhost.key --ssl-cert localhost.crt",
+    "start": "ng serve",
+    "start:prod": "ng serve --configuration production",
+    "start:ssl": "ng serve --ssl --ssl-key localhost.key --ssl-cert localhost.crt",
     "build": "ng build",
     "build:prod": "ng build --prod",
     "test": "ng test",
