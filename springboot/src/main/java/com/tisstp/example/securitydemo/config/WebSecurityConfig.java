@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String[] CSRF_IGNORE = {"/auth"};
 
-  @Value("${security.enable-csrf:true}") // todo add in yaml file
+  @Value("${security.enable-csrf:true}")
   private boolean csrfEnabled = true;
 
   @Autowired
@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers(CSRF_IGNORE).permitAll()
       .anyRequest().authenticated();
 
-    log.debug(String.format("CSRF: %s", csrfEnabled ? "enabled" : "disabled"));
+    log.info(String.format("CSRF: %s", csrfEnabled ? "enabled" : "disabled"));
     if (!csrfEnabled) {
       http.csrf().disable();
     } else {
