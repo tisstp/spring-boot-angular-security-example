@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiEndpointsService } from 'src/app/core/services/api-endpoints.service';
+import { ApiHttpService } from 'src/app/core/services/api-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +9,16 @@ import { Observable } from 'rxjs';
 export class ExampleService {
 
   constructor(
-    private http: HttpClient
+    private apiHttpService: ApiHttpService,
+    private apiEndpointsService: ApiEndpointsService
   ) { }
 
   withCsrfXsrf(obj: any): Observable<any> {
-    return this.http.post('/api/example', obj);
+    return this.apiHttpService.post(this.apiEndpointsService.getExampleEndpoint(), obj);
   }
 
   hello(obj: any): Observable<any> {
-    return this.http.put('http://localhost:9000/api/hello', obj);
+    return this.apiHttpService.put('http://localhost:9000/api/hello', obj);
   }
 
 }

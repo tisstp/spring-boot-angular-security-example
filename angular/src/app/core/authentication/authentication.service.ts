@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiEndpointsService } from 'src/app/core/services/api-endpoints.service';
+import { ApiHttpService } from 'src/app/core/services/api-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,12 @@ import { Observable } from 'rxjs';
 export class AuthenticationService {
 
   constructor(
-    private http: HttpClient
+    private apiHttpService: ApiHttpService,
+    private apiEndpointsService: ApiEndpointsService
   ) { }
 
   withCsrfIgnore(obj: any): Observable<any> {
-    return this.http.post('/api/auth', obj);
+    return this.apiHttpService.post(this.apiEndpointsService.getAuthEndpoint(), obj);
   }
 
 }
