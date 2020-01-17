@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## dependencies
 
-- `ng add @ngrx/schematics`
+- add `yarn add @ngrx/{store,effects,entity,store-devtools}` [NgRx](https://ngrx.io/docs) is a framework for building reactive applications in Angular. NgRx provides state management
 
 ## Development server
 
