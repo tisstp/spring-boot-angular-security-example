@@ -1,5 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Logger } from '@shared/classes';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ExampleService } from 'src/app/services/example.service';
@@ -21,6 +22,7 @@ export class WelcomePageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private exampleService: ExampleService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -48,4 +50,8 @@ export class WelcomePageComponent implements OnInit {
     });
   }
 
+  logout() {
+    log.debug('logout');
+    this.router.navigate(['auth', 'login']);
+  }
 }
