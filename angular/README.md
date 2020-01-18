@@ -54,16 +54,20 @@ create feature steps
 4. rename file `index.ts` in folder `reducers` to `reducers.ts` and move file in `auth` folder
 5. create feature `ng generate @ngrx/schematics:feature status --reducers reducers.ts --api true --flat false`
 
-> ? Do you want to use the create functions? Yes
-  ? To which module (path) should the effect be registered in? auth-store
+```text
+? Do you want to use the create functions? Yes
+? To which module (path) should the effect be registered in? auth-store
+```
 
 6. rename file
 
-> status.actions.ts        -> actions.ts
-  status.effects.spec.ts   -> effects.spec.ts
-  status.effects.ts        -> effects.ts
-  status.reducer.spec.ts   -> reducer.spec.ts
-  status.reducer.ts        -> reducer.ts
-  status.selectors.spec.ts -> selectors.spec.ts
-  status.selectors.ts      -> selectors.ts
+```text
+status.actions.ts        -> actions.ts
+status.effects.spec.ts   -> effects.spec.ts
+status.effects.ts        -> effects.ts
+status.reducer.spec.ts   -> reducer.spec.ts
+status.reducer.ts        -> reducer.ts
+status.selectors.spec.ts -> selectors.spec.ts
+status.selectors.ts      -> selectors.ts
+```
 
