@@ -38,14 +38,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - `ng generate component welcome-page` generate page component
 
 
-#### generate store
+## generate store
 
-create root steps
+### create root steps
 
 1. create folder name `store`
 2. create module `ng generate module root-store --flat`
 
-create feature steps (Option 1)
+### create feature steps (Option 1)
 
 1. create folder name `auth`
 2. create module `ng generate module auth-store --flat`
@@ -71,8 +71,9 @@ status.selectors.spec.ts -> selectors.spec.ts
 status.selectors.ts      -> selectors.ts
 ```
 
+![store-structure](docs/images/store-01.png)
 
-create feature steps (Option 2 - group folder)
+### create feature steps (Option 2 - group folder)
 
 1. create folder name `auth`
 2. create module `ng generate module auth-store --flat`
@@ -85,4 +86,4 @@ create feature steps (Option 2 - group folder)
 ? To which module (path) should the effect be registered in? auth-store
 ```
 
-![store-structure](docs/images/store-structure.png)
+![store-structure](docs/images/store-02.png)
