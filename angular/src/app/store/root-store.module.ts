@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { NavigationActionTiming, RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
-import { AuthStoreModule } from 'src/app/store/auth';
+import { AuthStoreModule } from 'src/app/store/features/auth';
 import { RootEffects } from 'src/app/store/effects';
 import { metaReducers, reducers } from 'src/app/store/reducers';
 

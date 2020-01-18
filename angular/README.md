@@ -45,21 +45,21 @@ create root steps
 1. create folder name `store`
 2. create module `ng generate module root-store --flat`
 
-create feature steps
+create feature steps (Option 1)
 
 1. create folder name `auth`
 2. create module `ng generate module auth-store --flat`
 3. create file `index.ts` in folder `auth` and export `auth-store.module`
-3. create store  `ng generate @ngrx/schematics:store auth --module auth-store`
-4. rename file `index.ts` in folder `reducers` to `reducers.ts` and move file in `auth` folder
-5. create feature `ng generate @ngrx/schematics:feature status --reducers reducers.ts --api true --flat false`
+4. create store  `ng generate @ngrx/schematics:store auth --module auth-store`
+5. rename file `index.ts` in folder `reducers` to `reducers.ts` and move file in `auth` folder
+6. create feature `ng generate @ngrx/schematics:feature status --reducers reducers.ts --api true --flat false`
 
 ```text
 ? Do you want to use the create functions? Yes
 ? To which module (path) should the effect be registered in? auth-store
 ```
 
-6. rename file
+7. rename file
 
 ```text
 status.actions.ts        -> actions.ts
@@ -71,3 +71,18 @@ status.selectors.spec.ts -> selectors.spec.ts
 status.selectors.ts      -> selectors.ts
 ```
 
+
+create feature steps (Option 2 - group folder)
+
+1. create folder name `auth`
+2. create module `ng generate module auth-store --flat`
+3. create file `index.ts` in folder `auth` and export `auth-store.module`
+4. create store  `ng generate @ngrx/schematics:store auth --module auth-store`
+5. create feature `ng generate @ngrx/schematics:feature auth --group --reducers reducers/index.ts --api`
+
+```text
+? Do you want to use the create functions? Yes
+? To which module (path) should the effect be registered in? auth-store
+```
+
+![store-structure](docs/images/store-structure.png)
