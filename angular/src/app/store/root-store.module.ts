@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { NavigationActionTiming, RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { AuthStoreModule } from 'src/app/store/auth';
 import { RootEffects } from 'src/app/store/effects';
@@ -25,6 +25,8 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
+
+        /** RouterState.Full isn't compatible with these runtime checks */
         strictStateSerializability: true,
         strictActionSerializability: true
       }
@@ -35,6 +37,9 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
      */
     StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal,
+
+      /** action to be dispatched after guards and resolvers successfully ran and the new route will be activated. */
+      navigationActionTiming: NavigationActionTiming.PostActivation,
     }),
 
     /**
