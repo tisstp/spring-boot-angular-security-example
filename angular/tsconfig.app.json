@@ -5,7 +5,8 @@
     "types": [],
     "paths": {
       "@app/*": ["src/app/*"],
-      "@env/*": ["src/environments/*"]
+      "@env/*": ["src/environments/*"],
+      "@shared/*": ["src/app/shared/*"]
     }
   },
   "files": [

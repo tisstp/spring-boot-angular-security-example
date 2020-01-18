@@ -6,7 +6,7 @@ import { ApiHttpService } from 'src/app/core/services/api-http.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthService {
 
   constructor(
     private apiHttpService: ApiHttpService,

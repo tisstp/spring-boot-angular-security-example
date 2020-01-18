@@ -1,8 +1,8 @@
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Logger } from '@shared/classes/logger';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { Logger } from 'src/app/core';
 
 const log = new Logger('XsrfInterceptor');
 

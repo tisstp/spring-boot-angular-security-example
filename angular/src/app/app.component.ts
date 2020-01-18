@@ -1,8 +1,8 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
-import { Logger } from 'src/app/core';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { Logger } from '@shared/classes/logger';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { ExampleService } from 'src/app/services/example.service';
 
 const log = new Logger('App');
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-    private authService: AuthenticationService,
+    private authService: AuthService,
     private exampleService: ExampleService,
   ) {
   }
