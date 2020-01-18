@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpointsService } from 'src/app/core/services/api-endpoints.service';
 import { ApiHttpService } from 'src/app/core/services/api-http.service';
+import { Credentials, User } from 'src/app/modules/auth/models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class AuthService {
     private apiEndpointsService: ApiEndpointsService
   ) { }
 
-  withCsrfIgnore(obj: any): Observable<any> {
-    return this.apiHttpService.post(this.apiEndpointsService.getAuthEndpoint(), obj);
+  login(credentials: Credentials): Observable<User> {
+    return this.apiHttpService.post(this.apiEndpointsService.getAuthEndpoint(), credentials);
   }
 
 }

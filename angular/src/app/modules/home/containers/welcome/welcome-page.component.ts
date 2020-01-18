@@ -30,10 +30,10 @@ export class WelcomePageComponent implements OnInit {
 
   onWithoutCsrf() {
     log.debug('onWithoutCsrf');
-    this.authService.withCsrfIgnore(this.request).subscribe((res: HttpResponse<any>) => {
-      log.debug('response from server:', res);
-      // log.debug('response headers', res.headers.keys());
-    });
+    // this.authService.withCsrfIgnore(this.request).subscribe((res: HttpResponse<any>) => {
+    //   log.debug('response from server:', res);
+    //   // log.debug('response headers', res.headers.keys());
+    // });
   }
 
   onWithCsrf() {
