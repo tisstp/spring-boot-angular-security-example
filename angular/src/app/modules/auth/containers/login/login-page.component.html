@@ -3,6 +3,10 @@
   <p>login works!</p>
 
   <br>
+  <input type="text" placeholder="username" [(ngModel)]="username">
+
+  <br>
+  <div *ngIf="loginError$ | async as message">{{message}}</div>
 
   <div class="card-container">
     <div class="card card-small" (click)="login()" tabindex="0">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { ApiEndpointsService } from 'src/app/core/services/api-endpoints.service';
 import { ApiHttpService } from 'src/app/core/services/api-http.service';
 import { Credentials, User } from 'src/app/modules/auth/models';
@@ -15,7 +15,17 @@ export class AuthService {
   ) { }
 
   login(credentials: Credentials): Observable<User> {
-    return this.apiHttpService.post(this.apiEndpointsService.getAuthEndpoint(), credentials);
+    // return this.apiHttpService.post(this.apiEndpointsService.getAuthEndpoint(), credentials);
+
+    if (credentials.username !== 'test' && credentials.username !== 'ngrx') {
+      return throwError('Invalid username or password');
+    }
+
+    const user: User = {
+      token: btoa('sathaphorn.s'),
+      name: 'sathaphorn sunthornpan'
+    };
+    return of(user);
   }
 
 }
