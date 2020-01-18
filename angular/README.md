@@ -37,4 +37,33 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - `ng generate component home-container --inlineStyle --inlineTemplate --skipTests --flat` generate main component
 - `ng generate component welcome-page` generate page component
 
-- ng generate module root-store --flat
+
+#### generate store
+
+create root steps
+
+1. create folder name `store`
+2. create module `ng generate module root-store --flat`
+
+create feature steps
+
+1. create folder name `auth`
+2. create module `ng generate module auth-store --flat`
+3. create file `index.ts` in folder `auth` and export `auth-store.module`
+3. create store  `ng generate @ngrx/schematics:store auth --module auth-store`
+4. rename file `index.ts` in folder `reducers` to `reducers.ts` and move file in `auth` folder
+5. create feature `ng generate @ngrx/schematics:feature status --reducers reducers.ts --api true --flat false`
+
+> ? Do you want to use the create functions? Yes
+  ? To which module (path) should the effect be registered in? auth-store
+
+6. rename file
+
+> status.actions.ts        -> actions.ts
+  status.effects.spec.ts   -> effects.spec.ts
+  status.effects.ts        -> effects.ts
+  status.reducer.spec.ts   -> reducer.spec.ts
+  status.reducer.ts        -> reducer.ts
+  status.selectors.spec.ts -> selectors.spec.ts
+  status.selectors.ts      -> selectors.ts
+

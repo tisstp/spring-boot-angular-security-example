@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
+import { AuthStoreModule } from 'src/app/store/auth';
 import { RootEffects } from 'src/app/store/effects';
 import { metaReducers, reducers } from 'src/app/store/reducers';
 
@@ -44,6 +45,8 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
      * See: https://ngrx.io/guide/effects#registering-root-effects
      */
     EffectsModule.forRoot([RootEffects]),
+
+    AuthStoreModule,
   ]
 })
 export class RootStoreModule {
