@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
 const config: ExtraOptions = {
-  useHash: true
+  useHash: false
 };
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'prefix' },
   {
-    path: 'login',
-    loadChildren: () => import('@modules/login').then(m => m.LoginModule)
+    path: 'auth',
+    loadChildren: () => import('@modules/auth').then(m => m.AuthModule)
   },
   {
     path: 'home',

@@ -1,31 +1,22 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CookieService } from 'ngx-cookie-service';
-import { AppRoutingModule } from 'src/app/app-routing.module';
 import { extModules } from 'src/app/build-specifics';
-import { Constants } from 'src/app/config/constants';
-import { httpInterceptorProviders } from 'src/app/core/http';
+import { CoreModule } from 'src/app/core';
+import { AppComponent } from 'src/app/core/containers';
 import { RootStoreModule } from 'src/app/store';
-
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     RootStoreModule,
+    CoreModule,
     extModules, // In a production build you would want to disable the Store Devtools
   ],
-  providers: [
-    httpInterceptorProviders,
-    Constants,
-    CookieService,
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

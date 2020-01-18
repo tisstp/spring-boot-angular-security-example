@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home-container',
   template: `
-    <p>
-      home-container works!
-    </p>
+    <router-outlet></router-outlet>
   `,
   styles: []
 })
