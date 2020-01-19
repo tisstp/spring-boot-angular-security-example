@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import * as fromAuth from './reducers';
+import * as fromAuth from 'src/app/store/features/auth/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './effects/auth.effects';
+import { AuthEffects } from 'src/app/store/features/auth/effects';
 
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { environment } from '@env/environment';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import * as fromRoot from 'src/app/store/reducers';
-import * as fromAuth from './auth.reducer';
+import * as fromAuth from 'src/app/store/features/auth/status/reducer';
 
 export const authFeatureKey = 'auth';
 

@@ -6,7 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
-import * as AuthActions from '../actions/auth.actions';
+import * as AuthActions from 'src/app/store/features/auth/status/actions';
 
 
 @Injectable()

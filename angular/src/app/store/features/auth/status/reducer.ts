@@ -1,6 +1,6 @@
 import { User } from '@modules/auth/models';
 import { Action, createReducer, on } from '@ngrx/store';
-import { AuthActions } from 'src/app/store/features/auth/actions';
+import * as AuthActions from './actions';
 
 
 export const statusFeatureKey = 'status';
