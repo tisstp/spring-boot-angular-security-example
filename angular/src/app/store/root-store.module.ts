@@ -2,9 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { NavigationActionTiming, RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import { AuthStoreModule } from 'src/app/store/features/auth';
+import { META_REDUCERS, StoreModule } from '@ngrx/store';
+import { localStorageKeyName, storageKeysToSave } from 'src/app/config/store.config';
+import { ROOT_LOCAL_STORAGE_KEY, ROOT_STORAGE_KEYS } from 'src/app/core/app.tokens';
+import { LocalStorageService } from 'src/app/core/services';
 import { RootEffects } from 'src/app/store/effects';
+import { AuthStoreModule } from 'src/app/store/features/auth';
+import { metaReducerFactory } from 'src/app/store/functions';
 import { metaReducers, reducers } from 'src/app/store/reducers';
 
 
@@ -52,6 +56,16 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
     EffectsModule.forRoot([RootEffects]),
 
     AuthStoreModule,
+  ],
+  providers: [
+    { provide: ROOT_STORAGE_KEYS, useValue: storageKeysToSave },
+    { provide: ROOT_LOCAL_STORAGE_KEY, useValue: localStorageKeyName },
+    {
+      provide: META_REDUCERS,
+      deps: [ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY, LocalStorageService],
+      useFactory: metaReducerFactory,
+      multi: true
+    },
   ]
 })
 export class RootStoreModule {
