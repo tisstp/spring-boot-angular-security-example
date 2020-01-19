@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Logger } from '@shared/classes';
-import { AuthActions } from 'src/app/store/features/auth/actions';
-import * as fromAuth from 'src/app/store/features/auth/reducers';
-import * as AuthSelectors from 'src/app/store/features/auth/selectors/auth.selectors';
+import { AuthReducers } from 'src/app/store/features/auth';
+import { AuthActions, AuthSelectors } from 'src/app/store/features/auth/status';
 
 const log = new Logger('LoginPageComponent');
 
@@ -20,7 +19,7 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store: Store<fromAuth.State>,
+    private store: Store<AuthReducers.State>,
   ) { }
 
   ngOnInit() {
