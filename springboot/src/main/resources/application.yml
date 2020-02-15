@@ -11,3 +11,6 @@ spring:
     active: dev
   devtools:
     add-properties: false
+  h2:
+    console:
+      enabled: false

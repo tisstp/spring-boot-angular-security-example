@@ -10,4 +10,10 @@ logging:
     org.springframework.security: debug
 
 security:
-  enable-csrf: true
+  enable-csrf: false
+
+# Enabling H2 Console
+spring:
+  h2:
+    console:
+      enabled: true

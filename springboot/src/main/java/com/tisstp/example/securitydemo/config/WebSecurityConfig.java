@@ -37,6 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Value("${security.enable-csrf:true}")
   private boolean csrfEnabled = true;
+  @Value("${server.servlet.context-path}")
+  private String context;
 
   @Autowired
   private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
@@ -69,9 +71,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+      .antMatchers(String.format("%s/h2-console/**", context)).permitAll()
       .antMatchers(CSRF_IGNORE).permitAll()
       .anyRequest().authenticated();
 
+    log.info(String.format("context: %s", context));
     log.info(String.format("CSRF: %s", csrfEnabled ? "enabled" : "disabled"));
     if (!csrfEnabled) {
       http.csrf().disable();

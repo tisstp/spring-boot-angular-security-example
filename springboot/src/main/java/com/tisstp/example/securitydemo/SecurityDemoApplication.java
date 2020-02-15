@@ -23,7 +23,18 @@ public class SecurityDemoApplication extends SpringBootServletInitializer implem
 
   @Override
   public void run(String... args) throws Exception {
-    log.info(String.format("Server port(property): %s", env.getProperty("server.port")));
+    String profile = env.getProperty("spring.profiles.active");
+    String port = env.getProperty("server.port");
+    String context = env.getProperty("server.servlet.context-path");
+    String h2Enabled = env.getProperty("spring.h2.console.enabled");
+
+    log.info(String.format("Profile active: %s", profile));
+    log.info(String.format("Server port(property): %s", port));
+    log.info(String.format("Security enable-csrf: %s", env.getProperty("security.enable-csrf")));
+    log.info(String.format("Database H2 enabled: %s", h2Enabled));
+    if ("true".equals(h2Enabled)) {
+      log.info(String.format("H2 console: http://localhost:%s%s/h2-console", port, context));
+    }
   }
 
 }
