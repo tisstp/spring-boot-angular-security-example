@@ -11,6 +11,8 @@ spring:
     active: dev
   devtools:
     add-properties: false
-  h2:
-    console:
-      enabled: false
+  datasource:
+    initialization-mode: never
+  jpa:
+    hibernate:
+      ddl-auto: none

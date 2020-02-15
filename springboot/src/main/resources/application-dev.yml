@@ -7,13 +7,19 @@ management:
 logging:
   level:
     web: debug
-    org.springframework.security: debug
+    org.springframework.security: info
 
 security:
   enable-csrf: false
 
 # Enabling H2 Console
 spring:
+  datasource:
+    initialization-mode: always
+    platform: h2
+  jpa:
+    hibernate:
+      ddl-auto: none
   h2:
     console:
       enabled: true
