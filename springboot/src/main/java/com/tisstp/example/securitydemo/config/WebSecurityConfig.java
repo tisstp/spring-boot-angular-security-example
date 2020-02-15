@@ -75,7 +75,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers(CSRF_IGNORE).permitAll()
       .anyRequest().authenticated();
 
-    log.info(String.format("context: %s", context));
     log.info(String.format("CSRF: %s", csrfEnabled ? "enabled" : "disabled"));
     if (!csrfEnabled) {
       http.csrf().disable();
@@ -93,6 +92,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // disable page caching
     http.headers().cacheControl();
+
+    // fix X-Frame-Options is set to denied.
+    // https://stackoverflow.com/questions/28647136/how-to-disable-x-frame-options-response-header-in-spring-security
+    http.headers().frameOptions().sameOrigin();
   }
 
   private CsrfTokenRepository csrfTokenRepository() {
