@@ -1,6 +1,8 @@
 package com.tisstp.example.securitydemo.domain.repositories;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,16 +32,24 @@ public class StudentRepositoryCustomImpl implements StudentRepositoryCustom {
 
   @Override
   public Page<Student> searchStudentForNative(Student req, Pageable pageable) {
-    Page<Student> page;
+    Page<Student> page = new PageImpl<>(Collections.emptyList(), pageable, 0);;
     StringBuilder sql = new StringBuilder();
+
     sql.append("SELECT  "
-      + " id, "
-      + " name, "
-      + " passport_number as passportNumber "
-      + "FROM STUDENT ");
+      + " s.id, "
+      + " s.name, "
+      + " s.passport_number as passportNumber "
+      + "FROM STUDENT s ");
 
     try {
       RepoPager<Student> pager = new RepoPager<>(entityManager, sql, pageable) {
+        @Override
+        protected void setAllowOrderBy(Map<String, String> fields) {
+          fields.put("id", "s.id");
+          fields.put("name", "s.name");
+          fields.put("passportNumber", "s.passport_number");
+        }
+
         @Override
         protected void setConditions() {
 
@@ -55,7 +65,6 @@ public class StudentRepositoryCustomImpl implements StudentRepositoryCustom {
 
       page = pager.getPage();
     } catch (Exception ex) {
-      page = new PageImpl<>(Collections.emptyList(), pageable, 0);
       log.error(String.format("[Parameter]: %s", req));
       log.error(String.format("[Query]: %s", sql.toString()));
       log.error(String.format("An error occurred: %s, Stack trace is:", ex.getMessage()), ex);
