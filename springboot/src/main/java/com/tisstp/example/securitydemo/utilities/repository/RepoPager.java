@@ -1,5 +1,6 @@
 package com.tisstp.example.securitydemo.utilities.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -51,7 +52,7 @@ public abstract class RepoPager<T> extends RepoBase<T> {
       Query queryCount = entityManager.createNativeQuery(sqlCount);
       setParameters(queryCount);
       log.debug(String.format("[SQL Query] Select Count: %s", sqlCount));
-      Integer total = (Integer) queryCount.getSingleResult();
+      BigInteger total = (BigInteger) queryCount.getSingleResult();
       log.debug(String.format("[Result] Select Count: %s", total));
 
       if (pageable.isPaged()) {
@@ -62,7 +63,7 @@ public abstract class RepoPager<T> extends RepoBase<T> {
       log.debug(String.format("[SQL Query] Select Content: %s", sqlContent));
       List<T> contents = querySelect.getResultList();
       log.debug(String.format("[Content] Size: %s", contents.size()));
-      page = new PageImpl<>(contents, pageable, total);
+      page = new PageImpl<>(contents, pageable, total.longValue());
     } catch (PersistenceException ex) {
       log.error(String.format("An error occurred: %s, Stack trace is:", ex.getMessage()), ex);
     }

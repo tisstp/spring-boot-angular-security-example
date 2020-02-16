@@ -1,4 +1,10 @@
-insert into student
-values(10001,'Ranga', 'E1234567');
-insert into student
-values(10002,'Ravi', 'A1234568');
+insert into student values(10001,'Ranga', 'E1234567');
+insert into student values(10002,'Ravi1', 'A1234568');
+insert into student values(10003,'Ravi2', 'A1234569');
+insert into student values(10004,'Ravi3', 'A1234560');
+insert into student values(10005,'Ravi4', 'A1234578');
+insert into student values(10006,'Ravi5', 'A1234598');
+insert into student values(10007,'Ravi6', 'A1234668');
+insert into student values(10008,'Ravi7', 'A1234768');
+insert into student values(10009,'Ravi8', 'A1234868');
+insert into student values(100010,'Ravi9', 'A1239568');
