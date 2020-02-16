@@ -21,6 +21,7 @@ repositories {
 
 ext {
   set('lombokVersion', "1.18.10")
+  set('commonsLangVersion', "2.6")
 }
 
 configurations.all {
@@ -32,13 +33,14 @@ dependencies {
   compileOnly "org.projectlombok:lombok:${lombokVersion}"
   annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
+	implementation "commons-lang:commons-lang:${commonsLangVersion}"
 //	implementation 'org.modelmapper:modelmapper:2.3.5'
 
 /*<!-- spring-boot-starter-web -> spring-boot-starter-json -> jackson-databind : included by spring boot -->
   implementation 'com.fasterxml.jackson.core:jackson-databind' */
   implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
 
-//  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   implementation 'org.springframework.boot:spring-boot-starter-jdbc'
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
