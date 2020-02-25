@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prettier": "prettier --write \"**/*.{js,json,css,scss,less,md,ts,html,component.html}\"",
+    "prettier:all": "prettier --write \"**/*.{js,json,css,scss,less,md,ts,html,component.html}\"",
+    "prettier:check": "prettier --list-different \"**/*.{js,json,css,scss,less,md,ts,html,component.html}\"",
     "start": "ng serve",
     "start:prod": "ng serve --configuration production",
     "start:ssl": "ng serve --ssl --ssl-key localhost.key --ssl-cert localhost.crt",
