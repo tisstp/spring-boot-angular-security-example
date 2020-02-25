@@ -44,6 +44,7 @@ public abstract class RepoPager<T> extends RepoBase<T> {
 
   protected void setAllowOrderBy(Map<String, String> fields) {
     // todo: implement.. default fields.
+    // fields.put("field", "table.column");
   }
 
   @Override
@@ -87,7 +88,7 @@ public abstract class RepoPager<T> extends RepoBase<T> {
     String sqlNew;
     Sort sort = pageable.getSort();
     if (sort.isSorted() && fields != null && !fields.isEmpty()) {
-      sql.append(" ORDER BY ");
+      checkAppendOrderBy();
       sort.get().forEach(order -> {
         if (fields.containsKey(order.getProperty())) {
           String field = fields.get(order.getProperty());
@@ -102,6 +103,18 @@ public abstract class RepoPager<T> extends RepoBase<T> {
       sqlNew = sql.toString();
     }
     return sqlNew;
+  }
+
+  private void checkAppendOrderBy() {
+    if (sql.lastIndexOf("ORDER BY") == -1
+      && sql.lastIndexOf("order by") == -1
+      && sql.lastIndexOf("ORDER by") == -1
+      && sql.lastIndexOf("order BY") == -1
+    ) {
+      sql.append(" ORDER BY ");
+    } else {
+      sql.append(", ");
+    }
   }
 
   public Page<T> getPage() {
