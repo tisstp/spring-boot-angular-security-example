@@ -2,10 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.18.
 
-
 ## dependencies
 
 - add `yarn add @ngrx/{store,effects,entity,store-devtools}` [NgRx](https://ngrx.io/docs) is a framework for building reactive applications in Angular. NgRx provides state management
+- [Angular Prettier schematic](https://github.com/schuchard/prettier-schematic) A Schematic that adds prettier and a pre-commit hook for formatting staged files. [Docs](https://prettier.io/docs/en/options.html)
 
 ## Development server
 
@@ -31,12 +31,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-
 ### History generate from schematics
 
 - `ng generate component home-container --inlineStyle --inlineTemplate --skipTests --flat` generate main component
 - `ng generate component welcome-page` generate page component
-
 
 ## generate store
 
@@ -50,7 +48,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 1. create folder name `auth`
 2. create module `ng generate module auth-store --flat`
 3. create file `index.ts` in folder `auth` and export `auth-store.module`
-4. create store  `ng generate @ngrx/schematics:store auth --module auth-store`
+4. create store `ng generate @ngrx/schematics:store auth --module auth-store`
 5. rename file `index.ts` in folder `reducers` to `reducers.ts` and move file in `auth` folder
 6. create feature `ng generate @ngrx/schematics:feature status --reducers reducers.ts --api true --flat false`
 
@@ -78,7 +76,7 @@ status.selectors.ts      -> selectors.ts
 1. create folder name `auth`
 2. create module `ng generate module auth-store --flat`
 3. create file `index.ts` in folder `auth` and export `auth-store.module`
-4. create store  `ng generate @ngrx/schematics:store auth --module auth-store`
+4. create store `ng generate @ngrx/schematics:store auth --module auth-store`
 5. create feature `ng generate @ngrx/schematics:feature auth --group --reducers reducers/index.ts --api`
 
 ```text
@@ -87,3 +85,30 @@ status.selectors.ts      -> selectors.ts
 ```
 
 ![store-structure](docs/images/store-02.png)
+
+### [install] Angular Prettier schematic
+
+```text
+❯ ng add @schuchard/prettier
+Installing packages for tooling via yarn.
+Installed packages for tooling via yarn.
+? Specify the line length that the printer will wrap on (default: 80) 120
+? Specify the number of spaces per indentation-level 2
+? Print semicolons at the ends of statements? Yes
+? Use single quotes instead of double quotes? Yes
+? Print trailing commas wherever possible when multi-line? (default: none) es5
+? Add lint-staged for running Prettier against staged files? Yes
+? Format all Angular Files {js,json,css,scss,less,md,ts,html,component.html} > Yes! :) Yes
+CREATE .prettierignore (17 bytes)
+CREATE prettier.config.js (320 bytes)
+UPDATE package.json (2202 bytes)
+UPDATE tslint.json (1979 bytes)
+UPDATE .editorconfig (246 bytes)
+warning " > @ngrx/effects@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
+warning " > @ngrx/entity@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
+warning " > @ngrx/router-store@8.6.0" has incorrect peer dependency "@angular/common@^8.0.0".
+warning " > @ngrx/router-store@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
+warning " > @ngrx/router-store@8.6.0" has incorrect peer dependency "@angular/router@^8.0.0".
+warning " > @ngrx/store@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
+✔ Packages installed successfully.
+```
