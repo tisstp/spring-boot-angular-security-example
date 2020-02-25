@@ -11,6 +11,12 @@ import { AuthStoreModule } from 'src/app/store/features/auth';
 import { metaReducerFactory } from 'src/app/store/functions';
 import { metaReducers, reducers } from 'src/app/store/reducers';
 
+/**
+ * add features store this..
+ */
+const FEATURES_MODULE = [
+  AuthStoreModule
+];
 
 @NgModule({
   declarations: [],
@@ -55,7 +61,7 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
      */
     EffectsModule.forRoot([RootEffects]),
 
-    AuthStoreModule,
+    FEATURES_MODULE
   ],
   providers: [
     { provide: ROOT_STORAGE_KEYS, useValue: storageKeysToSave },

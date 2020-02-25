@@ -51,8 +51,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 2. create module `ng generate module auth-store --flat`
 3. create file `index.ts` in folder `auth` and export `auth-store.module`
 4. create store  `ng generate @ngrx/schematics:store auth --module auth-store`
-5. rename file `index.ts` in folder `reducers` to `reducers.ts` and move file in `auth` folder
-6. create feature `ng generate @ngrx/schematics:feature status --reducers reducers.ts --api true --flat false`
+--------- 5. rename file `index.ts` in folder `reducers` to `reducers.ts` and move file in `auth` folder
+6. create feature `ng generate @ngrx/schematics:feature status --reducers reducers/index.ts --api true --flat false -creators false --skipTest true`
 
 ```text
 ? Do you want to use the create functions? Yes
@@ -87,3 +87,11 @@ status.selectors.ts      -> selectors.ts
 ```
 
 ![store-structure](docs/images/store-02.png)
+
+
+## Refer
+
+angular 404 page not found
+- [angular-smart-404-page : medium](https://medium.com/angular-in-depth/angular-smart-404-page-85a45b109fd8)
+- [angular-smart-404-page : responses](https://medium.com/p/85a45b109fd8/responses/show)
+- [angular-smart-404-page : bobrov.dev](https://bobrov.dev/blog/angular-smart-404-page/)

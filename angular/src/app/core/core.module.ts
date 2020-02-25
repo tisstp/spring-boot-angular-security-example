@@ -3,13 +3,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { HighlightCardComponent, ToolbarComponent } from 'src/app/core/components';
-import { AppComponent } from 'src/app/core/containers';
+import { AppComponent, NotFoundPageComponent } from 'src/app/core/containers';
 import { httpInterceptorProviders } from 'src/app/core/http';
 
 const COMPONENTS = [
-  AppComponent,
   ToolbarComponent,
   HighlightCardComponent,
+];
+
+const CONTAINERS = [
+  AppComponent,
+  NotFoundPageComponent
 ];
 
 @NgModule({
@@ -21,8 +25,8 @@ const COMPONENTS = [
     CommonModule,
     RouterModule,
   ],
-  declarations: COMPONENTS,
-  exports: COMPONENTS
+  declarations: [CONTAINERS, COMPONENTS],
+  exports: [CONTAINERS, COMPONENTS]
 })
 export class CoreModule {
 }

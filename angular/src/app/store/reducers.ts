@@ -4,10 +4,12 @@ import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { debugStore } from 'src/app/store/functions';
 
 export interface RootState {
+  // todo layout
   router: fromRouter.RouterReducerState;
 }
 
 export const reducers: ActionReducerMap<RootState> = {
+  // todo layout
   router: fromRouter.routerReducer,
 };
 
