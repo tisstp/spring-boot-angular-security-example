@@ -104,11 +104,5 @@ CREATE prettier.config.js (320 bytes)
 UPDATE package.json (2202 bytes)
 UPDATE tslint.json (1979 bytes)
 UPDATE .editorconfig (246 bytes)
-warning " > @ngrx/effects@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
-warning " > @ngrx/entity@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
-warning " > @ngrx/router-store@8.6.0" has incorrect peer dependency "@angular/common@^8.0.0".
-warning " > @ngrx/router-store@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
-warning " > @ngrx/router-store@8.6.0" has incorrect peer dependency "@angular/router@^8.0.0".
-warning " > @ngrx/store@8.6.0" has incorrect peer dependency "@angular/core@^8.0.0".
 ✔ Packages installed successfully.
 ```
