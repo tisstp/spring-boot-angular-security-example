@@ -1,13 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DatatableHeaderComponent } from './components/header/datatable-header.component';
+import { NgModule } from '@angular/core';
 import { DatatableFooterComponent } from './components/footer/datatable-footer.component';
-import { DatatableTableComponent } from './containers/table/datatable-table.component';
+import { DatatableHeaderComponent } from './components/header/datatable-header.component';
 import { DatatableColumnComponent } from './containers/column/datatable-column.component';
+import { DatatableTableComponent } from './containers/table/datatable-table.component';
 
-// ignore-prettier
+// prettier-ignore
 @NgModule({
-  declarations: [DatatableHeaderComponent, DatatableFooterComponent, DatatableTableComponent, DatatableColumnComponent],
-  imports: [CommonModule]
+  declarations: [
+    DatatableHeaderComponent,
+    DatatableFooterComponent,
+    DatatableTableComponent,
+    DatatableColumnComponent
+  ],
+  imports: [
+    CommonModule
+  ]
 })
-export class DatatableModule {}
+export class DatatableModule {
+}
