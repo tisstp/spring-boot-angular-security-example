@@ -6,12 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./highlight-card.component.scss']
 })
 export class HighlightCardComponent implements OnInit {
-
   title = 'angular';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

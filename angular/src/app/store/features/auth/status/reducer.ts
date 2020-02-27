@@ -2,7 +2,6 @@ import { User } from '@modules/auth/models';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as AuthActions from './actions';
 
-
 export const statusFeatureKey = 'status';
 
 export interface State {
@@ -34,8 +33,7 @@ const authReducer = createReducer(
   on(AuthActions.loginFailure, (state, action) => ({
     ...state,
     errorMessage: action.error ? action.error : 'Incorrect username and/or password.'
-  })),
-
+  }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

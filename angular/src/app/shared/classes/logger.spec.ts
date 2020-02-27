@@ -1,6 +1,5 @@
 import { Logger, LogLevel, LogOutput } from './logger';
 
-
 const logMethods = ['log', 'info', 'warn', 'error'];
 
 describe('Logger', () => {

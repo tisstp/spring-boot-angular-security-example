@@ -7,7 +7,7 @@ export const environment = {
   endpoints: {
     allowOrigin: 'http://localhost:4200'
   },
-  apiUrl: 'http://localhost:9000/api',
+  apiUrl: 'http://localhost:9000/api'
 };
 
 /*

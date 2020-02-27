@@ -24,5 +24,4 @@ const COMPONENTS = [
   declarations: COMPONENTS,
   exports: COMPONENTS
 })
-export class CoreModule {
-}
+export class CoreModule {}

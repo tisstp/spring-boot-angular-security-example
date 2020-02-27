@@ -8,7 +8,6 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
 import * as AuthActions from 'src/app/store/features/auth/status/actions';
 
-
 @Injectable()
 export class AuthEffects {
 
@@ -17,7 +16,6 @@ export class AuthEffects {
     private authService: AuthService,
     private router: Router,
   ) {}
-
 
   login$ = createEffect(
     () => this.actions$.pipe(
@@ -32,10 +30,11 @@ export class AuthEffects {
   );
 
   loginSuccess$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(AuthActions.loginSuccess),
-      tap(() => this.router.navigate(['home', 'welcome']))
-    ),
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginSuccess),
+        tap(() => this.router.navigate(['home', 'welcome']))
+      ),
     { dispatch: false }
   );
 
@@ -49,5 +48,4 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
-
 }

@@ -10,10 +10,7 @@ describe('RootEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        RootEffects,
-        provideMockActions(() => actions$)
-      ]
+      providers: [RootEffects, provideMockActions(() => actions$)]
     });
 
     effects = TestBed.get<RootEffects>(RootEffects);

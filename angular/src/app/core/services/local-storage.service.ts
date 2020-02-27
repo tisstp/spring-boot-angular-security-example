@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { decrypt, encrypt } from '@shared/functions/security';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
-
-  constructor() { }
+  constructor() {}
 
   setSavedState(state: any, localStorageKey: string) {
     let jsonStr = JSON.stringify(state);
@@ -21,5 +19,4 @@ export class LocalStorageService {
     jsonStr = environment.production ? decrypt(jsonStr) : jsonStr;
     return JSON.parse(jsonStr);
   }
-
 }

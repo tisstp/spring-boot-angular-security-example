@@ -19,7 +19,7 @@ export class ApiEndpointsCreatorService {
   constructor(
     // Application Constants
     private constants: Constants
-  ) { }
+  ) {}
 
   protected getApiEndpoint(): string {
     return this.constants.API_ENDPOINT;
@@ -58,10 +58,7 @@ export class ApiEndpointsCreatorService {
   }
 
   // URL WITH PATH VARIABLES
-  protected createUrlWithPathVariables(
-    action: string,
-    pathVariables: any[] = []
-  ): string {
+  protected createUrlWithPathVariables(action: string, pathVariables: any[] = []): string {
     let encodedPathVariablesUrl = '';
     // Push extra path variables
     for (const pathVariable of pathVariables) {

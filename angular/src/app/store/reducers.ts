@@ -8,7 +8,7 @@ export interface RootState {
 }
 
 export const reducers: ActionReducerMap<RootState> = {
-  router: fromRouter.routerReducer,
+  router: fromRouter.routerReducer
 };
 
 

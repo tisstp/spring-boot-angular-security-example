@@ -14,10 +14,9 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     RootStoreModule,
     CoreModule,
-    extModules, // In a production build you would want to disable the Store Devtools
+    extModules // In a production build you would want to disable the Store Devtools
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

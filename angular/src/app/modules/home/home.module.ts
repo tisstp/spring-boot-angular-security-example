@@ -19,5 +19,4 @@ const COMPONENTS = [];
   ],
   declarations: [CONTAINERS, COMPONENTS]
 })
-export class HomeModule {
-}
+export class HomeModule {}

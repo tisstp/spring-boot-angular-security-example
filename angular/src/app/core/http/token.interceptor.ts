@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor {
-
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const headers = {
       // 'Access-Control-Allow-Origin': environment.endpoints.allowOrigin,
@@ -16,5 +15,4 @@ export class TokenInterceptor implements HttpInterceptor {
     req = req.clone({ setHeaders: headers });
     return next.handle(req);
   }
-
 }

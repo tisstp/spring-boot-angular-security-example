@@ -15,5 +15,4 @@ export class QueryStringParameters {
   }
 
   public toString = (): string => this.paramsAndValues.join('&');
-
 }

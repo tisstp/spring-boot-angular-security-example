@@ -13,7 +13,6 @@ const log = new Logger('LoginPageComponent');
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-
   username: string;
   loginError$ = this.store.pipe(select(AuthSelectors.getErrorMessage));
 
@@ -22,8 +21,7 @@ export class LoginPageComponent implements OnInit {
     private store: Store<AuthReducers.State>,
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login() {
     log.debug('login', this.username);

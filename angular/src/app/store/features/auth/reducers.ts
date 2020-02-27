@@ -14,8 +14,7 @@ export interface AuthState {
 }
 
 export const reducers: ActionReducerMap<AuthState> = {
-  [fromAuth.statusFeatureKey]: fromAuth.reducer,
+  [fromAuth.statusFeatureKey]: fromAuth.reducer
 };
-
 
 export const metaReducers: MetaReducer<AuthState>[] = !environment.production ? [] : [];

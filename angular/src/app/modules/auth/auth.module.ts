@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AuthRoutingModule } from '@modules/auth/auth-routing.module';
 import { LoginPageComponent } from '@modules/auth/containers';
 
-
 @NgModule({
   declarations: [
     LoginPageComponent
@@ -15,5 +14,4 @@ import { LoginPageComponent } from '@modules/auth/containers';
     FormsModule
   ]
 })
-export class AuthModule {
-}
+export class AuthModule {}

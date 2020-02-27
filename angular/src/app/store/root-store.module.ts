@@ -11,7 +11,6 @@ import { AuthStoreModule } from 'src/app/store/features/auth';
 import { metaReducerFactory } from 'src/app/store/functions';
 import { metaReducers, reducers } from 'src/app/store/reducers';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -43,7 +42,7 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
       routerState: RouterState.Minimal,
 
       /** action to be dispatched after guards and resolvers successfully ran and the new route will be activated. */
-      navigationActionTiming: NavigationActionTiming.PostActivation,
+      navigationActionTiming: NavigationActionTiming.PostActivation
     }),
 
     /**
@@ -55,7 +54,7 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
      */
     EffectsModule.forRoot([RootEffects]),
 
-    AuthStoreModule,
+    AuthStoreModule
   ],
   providers: [
     { provide: ROOT_STORAGE_KEYS, useValue: storageKeysToSave },
@@ -65,8 +64,7 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
       deps: [ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY, LocalStorageService],
       useFactory: metaReducerFactory,
       multi: true
-    },
+    }
   ]
 })
-export class RootStoreModule {
-}
+export class RootStoreModule {}

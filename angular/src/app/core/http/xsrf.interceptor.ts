@@ -6,16 +6,11 @@ import { Observable } from 'rxjs';
 
 const log = new Logger('XsrfInterceptor');
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class XsrfInterceptor implements HttpInterceptor {
-
-  constructor(
-    private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
-  ) { }
+  constructor(private tokenExtractor: HttpXsrfTokenExtractor, private cookieService: CookieService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.tokenExtractor.getToken() as string;
@@ -32,9 +27,8 @@ export class XsrfInterceptor implements HttpInterceptor {
       // headers.delete('X-XSRF-TOKEN');
       // log.debug(headers.keys());
       // req = req.clone({ headers });
-    //   req = req.clone({ setHeaders: { 'X-XSRF-TOKEN': token } });
+      //   req = req.clone({ setHeaders: { 'X-XSRF-TOKEN': token } });
     }
     return next.handle(req);
   }
-
 }

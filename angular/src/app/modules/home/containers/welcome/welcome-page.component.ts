@@ -13,7 +13,6 @@ const log = new Logger('WelcomePageComponent');
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent implements OnInit {
-
   request = {
     name: 'Sathaphorn',
     surname: 'Sunthornpan'
@@ -25,8 +24,7 @@ export class WelcomePageComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onWithoutCsrf() {
     log.debug('onWithoutCsrf');
@@ -38,14 +36,14 @@ export class WelcomePageComponent implements OnInit {
 
   onWithCsrf() {
     log.debug('onWithCsrf');
-    this.exampleService.withCsrfXsrf(this.request).subscribe((val) => {
+    this.exampleService.withCsrfXsrf(this.request).subscribe(val => {
       log.debug('res:', val);
     });
   }
 
   onHello() {
     log.debug('onHello');
-    this.exampleService.hello(this.request).subscribe((val) => {
+    this.exampleService.hello(this.request).subscribe(val => {
       log.debug('res:', val);
     });
   }

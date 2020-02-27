@@ -23,5 +23,4 @@ export class UrlBuilder {
     const qs: string = this.queryString ? this.queryString.toString() : '';
     return qs ? `${this.url}?${qs}` : this.url;
   }
-
 }
