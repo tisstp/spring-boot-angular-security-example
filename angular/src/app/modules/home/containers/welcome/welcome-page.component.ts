@@ -18,11 +18,7 @@ export class WelcomePageComponent implements OnInit {
     surname: 'Sunthornpan'
   };
 
-  constructor(
-    private authService: AuthService,
-    private exampleService: ExampleService,
-    private router: Router
-  ) { }
+  constructor(private authService: AuthService, private exampleService: ExampleService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -51,5 +47,9 @@ export class WelcomePageComponent implements OnInit {
   logout() {
     log.debug('logout');
     this.router.navigate(['auth', 'login']);
+  }
+
+  gotoDatatableExample() {
+    this.router.navigate(['example', 'datatable']);
   }
 }
