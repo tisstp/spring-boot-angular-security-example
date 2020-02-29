@@ -13,15 +13,21 @@
       </button>
       <ul id="dropdown-size-per-page" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-size-per-page">
         <li role="menuitem" *ngFor="let item of itemPerPageList; index as id; trackBy: trackByFn">
-          <div class="dropdown-item" (click)="selectedSizeOfPage(item)">{{ item }}</div>
+          <div class="dropdown-item" (click)="onSelectedSizeOfPage(item)">{{ item }}</div>
         </li>
       </ul>
     </div>
   </div>
   <!-- endregion -->
 
-  <div class="col-sm text-right my-2">
-    <!-- search text box -->
-    One of three columns
+  <!-- region search text box -->
+  <div class="col-sm my-2">
+    <div class="input-group float-right">
+      <input type="text" class="form-control" [(ngModel)]="searchText" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">search</button>
+      </div>
+    </div>
   </div>
+  <!-- endregion -->
 </div>

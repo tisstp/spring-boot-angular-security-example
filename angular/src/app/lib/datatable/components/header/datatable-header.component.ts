@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Logger } from '@shared/classes';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
+
+const log = new Logger('DatatableHeader');
 
 @Component({
   selector: 'datatable-header',
@@ -9,6 +12,7 @@ import { DatatableService } from 'src/app/lib/datatable/services/datatable.servi
 export class DatatableHeaderComponent implements OnInit {
   sizeOfPage: number;
   itemPerPageList: number[];
+  searchText: string;
 
   constructor(private datatableService: DatatableService) {
     this.sizeOfPage = datatableService.sizeOfPage;
@@ -21,8 +25,13 @@ export class DatatableHeaderComponent implements OnInit {
     return item;
   }
 
-  selectedSizeOfPage(size: number) {
+  onSelectedSizeOfPage(size: number) {
     this.sizeOfPage = size;
+    // todo: callback event
+  }
+
+  onSearch() {
+    log.debug(this.searchText);
     // todo: callback event
   }
 }

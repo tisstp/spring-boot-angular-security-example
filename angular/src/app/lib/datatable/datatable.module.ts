@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { DatatableServiceConfig } from 'src/app/lib/datatable/config/datatable-service-config';
 import { DatatableServiceModule } from 'src/app/lib/datatable/services/datatable-service.module';
@@ -22,8 +23,9 @@ import { RecordNoPagingPipe } from './pipes/record-no-paging.pipe';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     DatatableServiceModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
   ],
   exports: [
     DatatableTableComponent,
