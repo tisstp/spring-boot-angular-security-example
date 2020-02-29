@@ -4,6 +4,7 @@ import { DatatableFooterComponent } from './components/footer/datatable-footer.c
 import { DatatableHeaderComponent } from './components/header/datatable-header.component';
 import { DatatableColumnComponent } from './containers/column/datatable-column.component';
 import { DatatableTableComponent } from './containers/table/datatable-table.component';
+import { TableTemplateDirective } from './containers/template/table-template.directive';
 
 // prettier-ignore
 @NgModule({
@@ -11,10 +12,14 @@ import { DatatableTableComponent } from './containers/table/datatable-table.comp
     DatatableHeaderComponent,
     DatatableFooterComponent,
     DatatableTableComponent,
-    DatatableColumnComponent
+    DatatableColumnComponent,
+    TableTemplateDirective
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    TableTemplateDirective
   ]
 })
 export class DatatableModule {
