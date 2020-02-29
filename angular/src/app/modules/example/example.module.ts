@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DatatableModule } from 'src/app/lib/datatable/datatable.module';
 import { ExampleRoutingModule } from 'src/app/modules/example/example-routing.module';
 import { DatatableDemoComponent } from './datatable/datatable-demo.component';
 
@@ -10,7 +11,8 @@ import { DatatableDemoComponent } from './datatable/datatable-demo.component';
   ],
   imports: [
     CommonModule,
-    ExampleRoutingModule
+    ExampleRoutingModule,
+    DatatableModule,
   ]
 })
 export class ExampleModule { }

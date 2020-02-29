@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-datatable-footer',
+  selector: 'datatable-footer',
   templateUrl: './datatable-footer.component.html',
   styleUrls: ['./datatable-footer.component.scss']
 })

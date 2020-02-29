@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-datatable-header',
+  selector: 'datatable-header',
   templateUrl: './datatable-header.component.html',
   styleUrls: ['./datatable-header.component.scss']
 })
