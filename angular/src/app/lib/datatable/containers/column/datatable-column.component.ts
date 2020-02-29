@@ -6,6 +6,10 @@ import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-t
   template: ''
 })
 export class DatatableColumnComponent extends TableTemplate {
+  // for use in header, body and footer
+  @Input() style: any;
+  @Input() styleClass: string;
+
   // for table header
   @Input() headerName: string;
   @Input() headerStyle: any;

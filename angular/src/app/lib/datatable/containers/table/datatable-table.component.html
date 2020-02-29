@@ -2,8 +2,78 @@
 <datatable-header></datatable-header>
 <!-- endregion  -->
 
-<!-- region datatable body: table wrapper -->
-<datatable-body></datatable-body>
+<!-- region datatable body: table container -->
+<div [ngClass]="tableContainerStyleClass">
+  <table [ngClass]="tableStyleClass">
+    <!-- region table head -->
+    <thead [ngClass]="theadStyleClass">
+      <tr *ngIf="!headerTemplate">
+        <ng-container *ngFor="let col of columns">
+          <!-- method 1: default -->
+          <ng-container *ngIf="!col.headerTemplate">
+            <th scope="col" [ngStyle]="col.headerStyle || col.style" [ngClass]="col.headerStyleClass || col.styleClass">
+              {{ col.headerName }}
+            </th>
+          </ng-container>
+
+          <!-- method 2: custom in column -->
+          <ng-container *ngIf="col.headerTemplate">
+            <ng-container *ngTemplateOutlet="col.headerTemplate; context: { $implicit: col }"></ng-container>
+          </ng-container>
+        </ng-container>
+      </tr>
+
+      <!-- method 3: custom in row -->
+      <ng-container *ngIf="headerTemplate">
+        <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: columns }"></ng-container>
+      </ng-container>
+    </thead>
+    <!-- endregion -->
+
+    <!-- region table body -->
+    <tbody [ngClass]="tbodyStyleClass">
+      <!-- No Content -->
+      <tr *ngIf="!isHasContent">
+        <td [attr.colspan]="columns.length" class="text-center">{{ messageNoContent }}</td>
+      </tr>
+
+      <ng-container *ngIf="isHasContent">
+        <tr *ngFor="let item of data.content; index as id">
+          <ng-container *ngFor="let col of columns">
+            <!-- method 1: default -->
+            <ng-container *ngIf="!col.bodyTemplate">
+              <!-- show number record -->
+              <th
+                scope="row"
+                *ngIf="col.field == 'recordNo'"
+                [ngStyle]="col.bodyStyle || col.style"
+                [ngClass]="col.bodyStyleClass || col.styleClass"
+              >
+                {{ id | recordNoPaging: data }}
+              </th>
+
+              <!-- show content body -->
+              <td *ngIf="col.field != 'recordNo'" [ngStyle]="col.bodyStyle || col.style" [ngClass]="col.bodyStyleClass || col.styleClass">
+                {{ item[col.field] }}
+              </td>
+            </ng-container>
+
+            <!-- method 2: custom in column -->
+            <ng-container *ngIf="col.bodyTemplate">
+              <ng-container *ngTemplateOutlet="col.bodyTemplate; context: { $implicit: col, item: item }"></ng-container>
+            </ng-container>
+          </ng-container>
+        </tr>
+
+        <!-- method 3: custom in row -->
+        <ng-container *ngIf="bodyTemplate">
+          <ng-container *ngTemplateOutlet="bodyTemplate; context: { $implicit: columns, data: data.content }"></ng-container>
+        </ng-container>
+      </ng-container>
+    </tbody>
+    <!-- endregion -->
+  </table>
+</div>
 <!-- endregion  -->
 
 <!-- region datatable footer: pagination, total elements -->

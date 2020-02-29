@@ -5,7 +5,7 @@ import { DatatableHeaderComponent } from './components/header/datatable-header.c
 import { DatatableColumnComponent } from './containers/column/datatable-column.component';
 import { DatatableTableComponent } from './containers/table/datatable-table.component';
 import { TableTemplateDirective } from './containers/template/table-template.directive';
-import { DatatableBodyComponent } from './components/body/datatable-body.component';
+import { RecordNoPagingPipe } from './pipes/record-no-paging.pipe';
 
 // prettier-ignore
 @NgModule({
@@ -13,9 +13,9 @@ import { DatatableBodyComponent } from './components/body/datatable-body.compone
     DatatableTableComponent,
     DatatableColumnComponent,
     DatatableHeaderComponent,
-    DatatableBodyComponent,
     DatatableFooterComponent,
     TableTemplateDirective,
+    RecordNoPagingPipe,
   ],
   imports: [
     CommonModule
