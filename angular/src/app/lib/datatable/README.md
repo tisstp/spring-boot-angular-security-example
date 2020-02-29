@@ -22,13 +22,20 @@ let userPage = {
 
 ### Example 1: Default
 
-```angular2html
-  <datatable [data]="userPage">
-    <datatable-column headerName="No" field="recordNo" styleClass="text-center"></datatable-column>
-    <datatable-column headerName="ID" field="id"></datatable-column>
-    <datatable-column headerName="Name" field="name"></datatable-column>
-    <datatable-column headerName="Passport Number" field="passportNumber"></datatable-column>
-  </datatable>
+```html
+<datatable [data]="userPage">
+  <datatable-column
+    headerName="No"
+    field="recordNo"
+    styleClass="text-center"
+  ></datatable-column>
+  <datatable-column headerName="ID" field="id"></datatable-column>
+  <datatable-column headerName="Name" field="name"></datatable-column>
+  <datatable-column
+    headerName="Passport Number"
+    field="passportNumber"
+  ></datatable-column>
+</datatable>
 ```
 
 ![datatable-example-01-default](/angular/docs/images/datatable-example-01-default.png)
@@ -37,22 +44,60 @@ let userPage = {
 
 ### Example 2: Custom in column.
 
-```angular2html
-  <datatable [data]="userPage">
-    <datatable-column headerName="No" field="recordNo" styleClass="text-center"></datatable-column>
-    <datatable-column headerName="ID" field="id"></datatable-column>
-    <datatable-column headerName="Name" field="name"></datatable-column>
-    <datatable-column headerName="Passport Number" field="passportNumber">
-      <ng-template tableTemplate="header" let-col>
-        <th>{{ '<<< ' + col.headerName + ' >>>' }}</th>
-      </ng-template>
-      <ng-template tableTemplate="body" let-col let-item="item">
-        <td>
-          <a href="#">{{ item[col.field] }}</a>
-        </td>
-      </ng-template>
-    </datatable-column>
-  </datatable>
+```html
+<datatable [data]="userPage">
+  <datatable-column
+    headerName="No"
+    field="recordNo"
+    styleClass="text-center"
+  ></datatable-column>
+  <datatable-column headerName="ID" field="id"></datatable-column>
+  <datatable-column headerName="Name" field="name"></datatable-column>
+  <datatable-column headerName="Passport Number" field="passportNumber">
+    <ng-template tableTemplate="header" let-col>
+      <th>{{ '<<< ' + col.headerName + ' >>>' }}</th>
+    </ng-template>
+    <ng-template tableTemplate="body" let-col let-item="item">
+      <td>
+        <a href="#">{{ item[col.field] }}</a>
+      </td>
+    </ng-template>
+  </datatable-column>
+</datatable>
 ```
 
 ![datatable-example-02-custom-in-column](/angular/docs/images/datatable-example-02-custom-in-column.png)
+
+### Example 3: Custom in datable.
+
+```html
+<datatable [data]="userPage">
+  <datatable-column
+    headerName="No"
+    field="recordNo"
+    styleClass="text-center"
+  ></datatable-column>
+  <datatable-column headerName="ID" field="id"></datatable-column>
+  <datatable-column headerName="Name" field="name"></datatable-column>
+  <datatable-column
+    headerName="Passport Number"
+    field="passportNumber"
+  ></datatable-column>
+
+  <ng-template tableTemplate="header" let-columns>
+    <ng-container *ngFor="let col of columns">
+      <th scope="col" class="text-center">{{ col.headerName }}</th>
+    </ng-container>
+  </ng-template>
+
+  <ng-template tableTemplate="body" let-columns let-data="data">
+    <tr *ngFor="let item of data; index as id">
+      <ng-container *ngFor="let col of columns">
+        <td class="text-center">{{ item[col.field] }}</td>
+      </ng-container>
+    </tr>
+  </ng-template>
+</datatable>
+```
+
+![datatable-example-03-custom-in-datatable](/angular/docs/images/datatable-example-03-custom-in-datatable.png)

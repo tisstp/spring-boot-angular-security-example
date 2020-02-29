@@ -38,33 +38,34 @@
       </tr>
 
       <ng-container *ngIf="isHasContent">
-        <tr *ngFor="let item of data.content; index as id">
-          <ng-container *ngFor="let col of columns">
-            <!-- method 1: default -->
-            <ng-container *ngIf="!col.bodyTemplate">
-              <!-- show number record -->
-              <th
-                scope="row"
-                *ngIf="col.field == 'recordNo'"
-                [ngStyle]="col.bodyStyle || col.style"
-                [ngClass]="col.bodyStyleClass || col.styleClass"
-              >
-                {{ id | recordNoPaging: data }}
-              </th>
+        <ng-container *ngIf="!bodyTemplate">
+          <tr *ngFor="let item of data.content; index as id">
+            <ng-container *ngFor="let col of columns">
+              <!-- method 1: default -->
+              <ng-container *ngIf="!col.bodyTemplate">
+                <!-- show number record -->
+                <th
+                  scope="row"
+                  *ngIf="col.field == 'recordNo'"
+                  [ngStyle]="col.bodyStyle || col.style"
+                  [ngClass]="col.bodyStyleClass || col.styleClass"
+                >
+                  {{ id | recordNoPaging: data }}
+                </th>
 
-              <!-- show content body -->
-              <td *ngIf="col.field != 'recordNo'" [ngStyle]="col.bodyStyle || col.style" [ngClass]="col.bodyStyleClass || col.styleClass">
-                {{ item[col.field] }}
-              </td>
+                <!-- show content body -->
+                <td *ngIf="col.field != 'recordNo'" [ngStyle]="col.bodyStyle || col.style" [ngClass]="col.bodyStyleClass || col.styleClass">
+                  {{ item[col.field] }}
+                </td>
+              </ng-container>
+
+              <!-- method 2: custom in column -->
+              <ng-container *ngIf="col.bodyTemplate">
+                <ng-container *ngTemplateOutlet="col.bodyTemplate; context: { $implicit: col, item: item }"></ng-container>
+              </ng-container>
             </ng-container>
-
-            <!-- method 2: custom in column -->
-            <ng-container *ngIf="col.bodyTemplate">
-              <ng-container *ngTemplateOutlet="col.bodyTemplate; context: { $implicit: col, item: item }"></ng-container>
-            </ng-container>
-          </ng-container>
-        </tr>
-
+          </tr>
+        </ng-container>
         <!-- method 3: custom in row -->
         <ng-container *ngIf="bodyTemplate">
           <ng-container *ngTemplateOutlet="bodyTemplate; context: { $implicit: columns, data: data.content }"></ng-container>
