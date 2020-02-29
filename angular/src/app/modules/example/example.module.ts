@@ -12,7 +12,10 @@ import { DatatableDemoComponent } from './components/datatable/datatable-demo.co
   imports: [
     CommonModule,
     ExampleRoutingModule,
-    DatatableModule,
+    DatatableModule.forRoot({
+      sizeOfPage: 10,
+      itemPerPageList: [10, 20, 30, 50, 100]
+    }),
   ]
 })
 export class ExampleModule { }

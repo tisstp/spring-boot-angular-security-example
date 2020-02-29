@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { DatatableServiceConfig } from 'src/app/lib/datatable/config/datatable-service-config';
+import { DatatableServiceModule } from 'src/app/lib/datatable/services/datatable-service.module';
 import { DatatableFooterComponent } from './components/footer/datatable-footer.component';
 import { DatatableHeaderComponent } from './components/header/datatable-header.component';
 import { DatatableColumnComponent } from './containers/column/datatable-column.component';
@@ -18,7 +21,9 @@ import { RecordNoPagingPipe } from './pipes/record-no-paging.pipe';
     RecordNoPagingPipe,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DatatableServiceModule,
+    BsDropdownModule.forRoot()
   ],
   exports: [
     DatatableTableComponent,
@@ -27,4 +32,20 @@ import { RecordNoPagingPipe } from './pipes/record-no-paging.pipe';
   ]
 })
 export class DatatableModule {
+
+  static forRoot(config?: DatatableServiceConfig): ModuleWithProviders {
+    return {
+      ngModule: DatatableModule,
+      providers: [
+        { provide: DatatableServiceConfig, useValue: config }
+      ]
+    };
+  }
+
+  constructor(@Optional() @SkipSelf() parentModule?: DatatableModule) {
+    if (parentModule) {
+      throw new Error('DatatableModule is already loaded. Import it in the AppModule only');
+    }
+  }
+
 }

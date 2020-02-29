@@ -1,1 +1,27 @@
-<p>datatable-header works!</p>
+<div class="row">
+  <!-- region size show item per page -->
+  <div class="col-sm text-left my-2">
+    <div class="btn-group" dropdown>
+      <button
+        id="button-size-per-page"
+        dropdownToggle
+        type="button"
+        class="btn btn-primary dropdown-toggle"
+        aria-controls="dropdown-size-per-page"
+      >
+        &nbsp;{{ sizeOfPage }}&nbsp; <span class="caret"></span>
+      </button>
+      <ul id="dropdown-size-per-page" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-size-per-page">
+        <li role="menuitem" *ngFor="let item of itemPerPageList; index as id; trackBy: trackByFn">
+          <div class="dropdown-item" (click)="selectedSizeOfPage(item)">{{ item }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- endregion -->
+
+  <div class="col-sm text-right my-2">
+    <!-- search text box -->
+    One of three columns
+  </div>
+</div>

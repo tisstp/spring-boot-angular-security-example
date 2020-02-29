@@ -1,8 +1,2 @@
 package.json
 dist
-
-#angular.json
-#tslint.json
-#tsconfig.json
-#tsconfig.app.json
-#tsconfig.spec.json

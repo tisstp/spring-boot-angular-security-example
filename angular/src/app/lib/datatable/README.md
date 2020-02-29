@@ -1,5 +1,11 @@
 ## Data Table
 
+## Requirement
+
+> bootstrap version: `4.1.1`
+
+> ngx-bootstrap version: `^5.3.2`
+
 ## Data for test
 
 ```typescript

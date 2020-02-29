@@ -15,7 +15,6 @@ const log = new Logger('ApiEndpointCreator');
   providedIn: 'root'
 })
 export class ApiEndpointsCreatorService {
-
   constructor(
     // Application Constants
     private constants: Constants
@@ -29,14 +28,10 @@ export class ApiEndpointsCreatorService {
     return this.constants.API_MOCK_ENDPOINT;
   }
 
-  /* #region URL CREATOR */
-
+  // region URL CREATOR
   // URL
   protected createUrl(action: string, isMockAPI: boolean = false): string {
-    const urlBuilder: UrlBuilder = new UrlBuilder(
-      isMockAPI ? this.getApiMockEndpoint() : this.getApiEndpoint(),
-      action
-    );
+    const urlBuilder: UrlBuilder = new UrlBuilder(isMockAPI ? this.getApiMockEndpoint() : this.getApiEndpoint(), action);
     const url = urlBuilder.toString();
     log.debug('createUrl: ', url);
     return url;
@@ -71,7 +66,5 @@ export class ApiEndpointsCreatorService {
     log.debug('createUrlWithPathVariables: ', url);
     return url;
   }
-
-  /* #endregion */
-
+  // endregion
 }
