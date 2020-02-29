@@ -1,12 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-template';
 
 @Component({
   selector: 'datatable-column',
-  templateUrl: './datatable-column.component.html',
-  styleUrls: ['./datatable-column.component.scss']
+  template: ''
 })
-export class DatatableColumnComponent implements OnInit {
-  constructor() {}
+export class DatatableColumnComponent extends TableTemplate {
+  // for table header
+  @Input() headerName: string;
+  @Input() headerStyle: any;
+  @Input() headerStyleClass: string;
+  @Input() sortable = false;
+  // @Input() sortable: SortType = 'none';
 
-  ngOnInit(): void {}
+  // for table body
+  @Input() field: string | 'recordNo';
+  @Input() rowspan: number;
+  @Input() colspan: number;
+  @Input() bodyStyle: any;
+  @Input() bodyStyleClass: string;
+
+  // for table footer
+  @Input() footerName: string;
+  @Input() footerStyle: any;
+  @Input() footerStyleClass: string;
 }

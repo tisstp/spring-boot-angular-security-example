@@ -1,19 +1,19 @@
 import { Directive, Input, TemplateRef } from '@angular/core';
-import { TableTemplate } from 'src/app/lib/datatable/models/datatable-types';
+import { TableTemplateType } from 'src/app/lib/datatable/models/datatable-types';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[tableTemplate]'
 })
 export class TableTemplateDirective {
-  private _type: TableTemplate;
+  private _type: TableTemplateType;
 
   @Input()
-  set tableTemplate(value: TableTemplate) {
+  set tableTemplate(value: TableTemplateType) {
     this._type = value;
   }
 
-  get getType(): TableTemplate {
+  get getType(): TableTemplateType {
     return this._type;
   }
 

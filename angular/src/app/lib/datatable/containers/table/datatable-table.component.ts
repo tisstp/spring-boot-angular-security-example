@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PageResponse } from 'src/app/lib/datatable/models/datatable-model';
 
 @Component({
   selector: 'datatable',
@@ -6,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./datatable-table.component.scss']
 })
 export class DatatableTableComponent implements OnInit {
+  private _data: PageResponse<any>;
+
+  @Input()
+  set data(value: PageResponse<any>) {
+    this._data = value;
+  }
+
   constructor() {}
 
   ngOnInit(): void {}
