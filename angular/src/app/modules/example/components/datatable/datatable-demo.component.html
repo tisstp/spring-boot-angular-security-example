@@ -1,5 +1,12 @@
 <div class="container">
-  <datatable [data]="pageData" [isLoading]="isDatatableLoading" (datatableChanged)="onDatatableChanged($event)">
+  <datatable
+    [data]="pageData"
+    [isUseCheckbox]="true"
+    [isLoading]="isDatatableLoading"
+    (selected)="onDatatableSelected($event)"
+    (datatableChanged)="onDatatableChanged($event)"
+  >
+    <datatable-column field="checkbox" styleClass="text-center"></datatable-column>
     <datatable-column headerName="No" field="recordNo" styleClass="text-center"></datatable-column>
     <datatable-column headerName="ID" field="id"></datatable-column>
     <datatable-column headerName="Name" field="name"></datatable-column>

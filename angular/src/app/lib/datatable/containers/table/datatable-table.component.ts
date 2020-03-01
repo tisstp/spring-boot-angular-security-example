@@ -1,4 +1,5 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Logger } from '@shared/classes';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -14,7 +15,31 @@ const log = new Logger('Datatable');
   templateUrl: './datatable-table.component.html',
   styleUrls: ['./datatable-table.component.scss']
 })
-export class DatatableTableComponent extends TableTemplate implements OnInit, AfterContentInit, OnDestroy {
+export class DatatableTableComponent extends TableTemplate implements AfterContentInit, OnDestroy {
+  @Input()
+  set data(value: PageResponse<any>) {
+    this._data = value;
+    if (this._data) {
+      this.datatableService.updatePageState({
+        sizeOfPage: value.pageSize,
+        currentPage: value.pageNumber
+      });
+      this.addCheckboxItemForm();
+    }
+  }
+
+  get data(): PageResponse<any> {
+    return this._data;
+  }
+
+  get isHasContent(): boolean {
+    return this.data ? this.data.numberOfElements > 0 : false;
+  }
+
+  get checkboxItems(): FormArray {
+    return this.checkboxForm.get('checkboxItems') as FormArray;
+  }
+
   // for style on table
   @Input() tableContainerStyleClass? = 'table-responsive position-relative mb-2';
   @Input() tableStyleClass? = 'table table-hover table-striped border-bottom mb-0';
@@ -31,41 +56,28 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
   @ContentChildren(DatatableColumnComponent) cols: QueryList<DatatableColumnComponent>;
   public columns: DatatableColumnComponent[];
 
+  // for checkbox
+  @Input() isUseCheckbox = false;
+  @Output() selected: EventEmitter<any> = new EventEmitter<any>();
+  public checkboxForm: FormGroup;
+  private checkboxSelected: any[] = [];
+
   // for content
   private _data: PageResponse<any>;
 
   private columnsSubscription: Subscription;
   private pageSubscription: Subscription;
 
-  @Input()
-  set data(value: PageResponse<any>) {
-    this._data = value;
-    if (this._data) {
-      this.datatableService.updatePageState({
-        sizeOfPage: value.pageSize,
-        currentPage: value.pageNumber
-      });
-    }
-  }
-
-  get data(): PageResponse<any> {
-    return this._data;
-  }
-
-  get isHasContent(): boolean {
-    return this.data ? this.data.numberOfElements > 0 : false;
-  }
-
   constructor(private datatableService: DatatableService) {
     super();
     this.subscribePageState();
   }
 
-  ngOnInit(): void {}
-
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
     this.initColumns();
+    this.initCheckboxForm();
+    this.addCheckboxItemForm();
     this.subscribeOnChangeDatatableColumnComponent();
   }
 
@@ -76,6 +88,17 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
     if (this.pageSubscription) {
       this.pageSubscription.unsubscribe();
     }
+  }
+
+  checkboxAllChanged() {
+    const checkboxAll = this.checkboxForm.get('checkboxAll');
+    this.checkboxItemAll(checkboxAll.value);
+    if (checkboxAll.value) {
+      this.checkboxSelected.push(...this.data.content);
+    } else {
+      this.checkboxSelected = [];
+    }
+    this.selected.emit(this.checkboxSelected);
   }
 
   private initColumns() {
@@ -101,5 +124,27 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
           });
         }
       });
+  }
+
+  private initCheckboxForm() {
+    this.checkboxForm = new FormGroup({
+      checkboxAll: new FormControl(false),
+      checkboxItems: new FormArray([])
+    });
+  }
+
+  private addCheckboxItemForm() {
+    if (this.isUseCheckbox) {
+      if (this.data && this.data.content) {
+        this.checkboxItems.clear();
+        for (const item of this.data.content) {
+          this.checkboxItems.push(new FormControl(false));
+        }
+      }
+    }
+  }
+
+  private checkboxItemAll(result: boolean) {
+    this.checkboxItems.patchValue(this.checkboxItems.getRawValue().map(val => result));
   }
 }

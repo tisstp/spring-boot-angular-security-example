@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DatatableServiceConfig } from 'src/app/lib/datatable/config/datatable-service-config';
@@ -28,6 +28,7 @@ import { ShowingItemsPipe } from './pipes/showing-items.pipe';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     DatatableServiceModule,
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot()

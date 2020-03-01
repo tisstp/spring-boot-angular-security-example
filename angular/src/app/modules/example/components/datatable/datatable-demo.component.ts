@@ -21,4 +21,8 @@ export class DatatableDemoComponent extends DatatableSearchEvent<User> implement
   searchOnDatatable(pageReq: PageRequest): Observable<PageResponse<User>> {
     return this.exampleDatatableService.getPageUser(pageReq.page, pageReq.size);
   }
+
+  onDatatableSelected(selected: User[]) {
+    console.log('selected: ', selected);
+  }
 }

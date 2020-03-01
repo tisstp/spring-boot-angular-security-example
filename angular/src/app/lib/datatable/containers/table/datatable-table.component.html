@@ -3,7 +3,7 @@
 <!-- endregion  -->
 
 <!-- region datatable body: table container -->
-<div [ngClass]="tableContainerStyleClass">
+<div [ngClass]="tableContainerStyleClass" [formGroup]="checkboxForm">
   <div *ngIf="isLoading" class="d-flex datatable-loading">
     <div class="align-self-center w-100 text-center h2">Loading...</div>
   </div>
@@ -15,7 +15,23 @@
         <ng-container *ngFor="let col of columns">
           <!-- method 1: default -->
           <ng-container *ngIf="!col.headerTemplate">
-            <th scope="col" [ngStyle]="col.headerStyle || col.style" [ngClass]="col.headerStyleClass || col.styleClass">
+            <!-- default: checkbox -->
+            <th
+              *ngIf="col.field == 'checkbox' && isUseCheckbox"
+              scope="col"
+              [ngStyle]="col.headerStyle || col.style || { width: '50px' }"
+              [ngClass]="col.headerStyleClass || col.styleClass"
+            >
+              <input type="checkbox" class="form-control" formControlName="checkboxAll" (change)="checkboxAllChanged()" />
+            </th>
+
+            <!-- default: normal -->
+            <th
+              *ngIf="col.field != 'checkbox'"
+              scope="col"
+              [ngStyle]="col.headerStyle || col.style"
+              [ngClass]="col.headerStyleClass || col.styleClass"
+            >
               {{ col.headerName }}
             </th>
           </ng-container>
@@ -42,12 +58,21 @@
       </tr>
 
       <ng-container *ngIf="isHasContent">
-        <ng-container *ngIf="!bodyTemplate">
+        <ng-container *ngIf="!bodyTemplate" formArrayName="checkboxItems">
           <tr *ngFor="let item of data.content; index as id">
             <ng-container *ngFor="let col of columns">
               <!-- method 1: default -->
               <ng-container *ngIf="!col.bodyTemplate">
-                <!-- show number record -->
+                <!-- default: show content checkbox -->
+                <th
+                  *ngIf="col.field == 'checkbox' && isUseCheckbox"
+                  [ngStyle]="col.bodyStyle || col.style"
+                  [ngClass]="col.bodyStyleClass || col.styleClass"
+                >
+                  <input type="checkbox" class="form-control" [formControlName]="id" />
+                </th>
+
+                <!-- default: show content number record -->
                 <th
                   scope="row"
                   *ngIf="col.field == 'recordNo'"
@@ -57,8 +82,12 @@
                   {{ id | recordNoPaging: data }}
                 </th>
 
-                <!-- show content body -->
-                <td *ngIf="col.field != 'recordNo'" [ngStyle]="col.bodyStyle || col.style" [ngClass]="col.bodyStyleClass || col.styleClass">
+                <!-- default: show content normal -->
+                <td
+                  *ngIf="col.field != 'recordNo' && col.field != 'checkbox'"
+                  [ngStyle]="col.bodyStyle || col.style"
+                  [ngClass]="col.bodyStyleClass || col.styleClass"
+                >
                   {{ item[col.field] }}
                 </td>
               </ng-container>
@@ -84,3 +113,5 @@
 <!-- region datatable footer: pagination, total elements -->
 <datatable-footer [data]="data"></datatable-footer>
 <!-- endregion  -->
+
+{{ checkboxForm.value | json }}

@@ -18,7 +18,7 @@ export class DatatableColumnComponent extends TableTemplate {
   // @Input() sortable: SortType = 'none';
 
   // for table body
-  @Input() field: string | 'recordNo';
+  @Input() field: string | 'recordNo' | 'checkbox';
   @Input() rowspan: number;
   @Input() colspan: number;
   @Input() bodyStyle: any;
