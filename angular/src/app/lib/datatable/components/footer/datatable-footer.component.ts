@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from '@shared/classes';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Subscription } from 'rxjs';
+import { PageResponse } from 'src/app/lib/datatable/models/datatable-model';
 import { PageState } from 'src/app/lib/datatable/models/page-state';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
@@ -17,6 +18,20 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
   currentPagination: number;
   isBoundaryLinks: boolean;
   page: PageState;
+
+  private _data: PageResponse<any>;
+
+  get data(): PageResponse<any> {
+    return this._data;
+  }
+
+  @Input()
+  set data(value: PageResponse<any>) {
+    this._data = value;
+    if (this._data) {
+      this.isBoundaryLinks = this._data.totalPages > this.maxSizePage;
+    }
+  }
 
   private pageSubscription: Subscription;
 
@@ -50,7 +65,6 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
       this.page = { ...state };
       const currentPageForPagination = this.datatableService.isStartPageAtZero ? 1 : 0;
       this.currentPagination = this.page.currentPage + currentPageForPagination;
-      this.isBoundaryLinks = this.page.totalPages > this.maxSizePage;
     });
   }
 }

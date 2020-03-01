@@ -35,8 +35,7 @@ export class DatatableService {
     return this.isStartPageAtZero ? 0 : 1;
   }
 
-  constructor(@Optional() config?: DatatableServiceConfig) {
-    log.debug('config: ', config);
+  constructor(@Optional() public config?: DatatableServiceConfig) {
     if (config) {
       this._sizeOfPageInit = config.sizeOfPage;
       this._itemPerPageList = config.itemPerPageList;
@@ -49,9 +48,7 @@ export class DatatableService {
     return {
       eventType: 'initial',
       sizeOfPage: this._sizeOfPageInit,
-      currentPage: this.pageStartAtZero,
-      totalPages: 0,
-      totalElements: 0
+      currentPage: this.pageStartAtZero
     };
   }
 

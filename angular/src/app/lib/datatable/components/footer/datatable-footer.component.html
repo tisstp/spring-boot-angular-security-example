@@ -1,7 +1,7 @@
 <div class="row">
   <!-- region showing {start} to {end} of {total} items -->
   <div class="col-sm text-left my-2">
-    {{ page | showingItems }}
+    {{ data | showingItems }}
   </div>
   <!-- endregion -->
 
@@ -12,7 +12,7 @@
         class="mx-auto"
         [ngModel]="currentPagination"
         [boundaryLinks]="isBoundaryLinks"
-        [totalItems]="page.totalElements"
+        [totalItems]="data?.totalElements"
         [itemsPerPage]="page.sizeOfPage"
         [maxSize]="maxSizePage"
         (pageChanged)="onPageChanged($event)"

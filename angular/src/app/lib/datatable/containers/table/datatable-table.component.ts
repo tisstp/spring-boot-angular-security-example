@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
 import { Logger } from '@shared/classes';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { DatatableColumnComponent } from 'src/app/lib/datatable/containers/column/datatable-column.component';
 import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-template';
 import { PageRequest, PageResponse } from 'src/app/lib/datatable/models/datatable-model';
@@ -41,9 +42,7 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
     if (this._data) {
       this.datatableService.updatePageState({
         sizeOfPage: value.pageSize,
-        currentPage: value.pageNumber,
-        totalPages: value.totalPages,
-        totalElements: value.totalElements
+        currentPage: value.pageNumber
       });
     }
   }
@@ -89,15 +88,17 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
   }
 
   private subscribePageState() {
-    this.pageSubscription = this.datatableService.pageState$.subscribe(state => {
-      log.debug('subscribe: page', state);
-      if (state.eventType === 'changedPage' || state.eventType === 'changedSize') {
-        this.datatableChanged.emit({
-          page: state.currentPage,
-          size: state.sizeOfPage,
-          sort: undefined // todo sorting
-        });
-      }
-    });
+    this.pageSubscription = this.datatableService.pageState$
+      .pipe(debounceTime(this.datatableService.config.debounceTime))
+      .subscribe(state => {
+        log.debug('subscribe: page', state);
+        if (state.eventType === 'changedPage' || state.eventType === 'changedSize') {
+          this.datatableChanged.emit({
+            page: state.currentPage,
+            size: state.sizeOfPage,
+            sort: undefined // todo sorting
+          });
+        }
+      });
   }
 }

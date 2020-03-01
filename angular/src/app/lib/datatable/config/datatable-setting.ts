@@ -4,5 +4,6 @@ export const DATATABLE_DEFAULT_SETTING: DatatableServiceConfig = {
   sizeOfPage: 5,
   itemPerPageList: [5, 10, 20, 50],
   maxSizePage: 5,
-  isStartPageAtZero: true
+  isStartPageAtZero: true,
+  debounceTime: 500
 };

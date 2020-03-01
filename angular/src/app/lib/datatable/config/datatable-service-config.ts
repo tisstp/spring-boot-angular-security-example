@@ -3,4 +3,5 @@ export class DatatableServiceConfig {
   itemPerPageList?: number[];
   maxSizePage?: number;
   isStartPageAtZero?: boolean;
+  debounceTime?: number;
 }

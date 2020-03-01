@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { PageState } from 'src/app/lib/datatable/models/page-state';
+import { PageResponse } from 'src/app/lib/datatable/models/datatable-model';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
 @Pipe({
@@ -11,12 +11,17 @@ export class ShowingItemsPipe implements PipeTransform {
 
   constructor(private datatableService: DatatableService) {}
 
-  transform(page: PageState, lang: 'th' | 'en' = 'en'): string {
+  transform(page: PageResponse<any>, lang: 'th' | 'en' = 'en'): string {
+    if (!page) {
+      return 'loading...';
+    }
     let val: string = lang === 'th' ? this.FORMAT_TH : this.FORMAT_EN;
     const pageStartAtZero = this.datatableService.pageStartAtZero;
-    const pageStart: number = (page.currentPage - pageStartAtZero) * page.sizeOfPage;
+    const pageStart: number = (page.pageNumber - pageStartAtZero) * page.pageSize;
+    let pageEnd = pageStart + page.pageSize;
+    pageEnd = pageEnd > page.totalElements ? page.totalElements : pageEnd;
     val = val.replace('{start}', String(pageStart + 1));
-    val = val.replace('{end}', String(pageStart + page.sizeOfPage));
+    val = val.replace('{end}', String(pageEnd));
     val = val.replace('{total}', String(page.totalElements));
     return val;
   }
