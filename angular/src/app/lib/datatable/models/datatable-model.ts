@@ -11,7 +11,7 @@ export interface SortColumn {
 export interface PageRequest {
   page: number;
   size: number;
-  sort: SortColumn[];
+  sort?: SortColumn[];
 }
 
 /**

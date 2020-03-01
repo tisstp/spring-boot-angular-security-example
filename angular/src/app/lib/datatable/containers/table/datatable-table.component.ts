@@ -1,9 +1,9 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
 import { Logger } from '@shared/classes';
 import { Subscription } from 'rxjs';
 import { DatatableColumnComponent } from 'src/app/lib/datatable/containers/column/datatable-column.component';
 import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-template';
-import { PageResponse } from 'src/app/lib/datatable/models/datatable-model';
+import { PageRequest, PageResponse } from 'src/app/lib/datatable/models/datatable-model';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
 const log = new Logger('Datatable');
@@ -23,23 +23,29 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
   // for message
   @Input() messageNoContent? = 'No Content!';
 
+  @Output() datatableChanged: EventEmitter<PageRequest> = new EventEmitter<PageRequest>();
+
   // for setting column
   @ContentChildren(DatatableColumnComponent) cols: QueryList<DatatableColumnComponent>;
   public columns: DatatableColumnComponent[];
-  private columnsSubscription: Subscription;
 
   // for content
   private _data: PageResponse<any>;
 
+  private columnsSubscription: Subscription;
+  private pageSubscription: Subscription;
+
   @Input()
   set data(value: PageResponse<any>) {
     this._data = value;
-    this.datatableService.updatePageState({
-      sizeOfPage: value.pageSize,
-      currentPage: value.pageNumber,
-      totalPages: value.totalPages,
-      totalElements: value.totalElements
-    });
+    if (this._data) {
+      this.datatableService.updatePageState({
+        sizeOfPage: value.pageSize,
+        currentPage: value.pageNumber,
+        totalPages: value.totalPages,
+        totalElements: value.totalElements
+      });
+    }
   }
 
   get data(): PageResponse<any> {
@@ -52,6 +58,7 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
 
   constructor(private datatableService: DatatableService) {
     super();
+    this.subscribePageState();
   }
 
   ngOnInit(): void {}
@@ -66,6 +73,9 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
     if (this.columnsSubscription) {
       this.columnsSubscription.unsubscribe();
     }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
   }
 
   private initColumns() {
@@ -74,8 +84,20 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
 
   private subscribeOnChangeDatatableColumnComponent() {
     this.columnsSubscription = this.cols.changes.subscribe(col => {
-      log.debug('columns change', col);
       this.initColumns();
+    });
+  }
+
+  private subscribePageState() {
+    this.pageSubscription = this.datatableService.pageState$.subscribe(state => {
+      log.debug('subscribe: page', state);
+      if (state.eventType === 'changedPage' || state.eventType === 'changedSize') {
+        this.datatableChanged.emit({
+          page: state.currentPage,
+          size: state.sizeOfPage,
+          sort: undefined // todo sorting
+        });
+      }
     });
   }
 }

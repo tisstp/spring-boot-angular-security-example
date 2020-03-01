@@ -45,20 +45,39 @@ export class DatatableService {
     }
   }
 
+  initialPageState(): PageState {
+    return {
+      eventType: 'initial',
+      sizeOfPage: this._sizeOfPageInit,
+      currentPage: this.pageStartAtZero,
+      totalPages: 0,
+      totalElements: 0
+    };
+  }
+
   updatePageState(state: PageState) {
     log.debug('updatePageState: ', state);
-    this.pageSubject$.next(state);
+    this.pageSubject$.next({
+      ...state,
+      eventType: 'updateAll'
+    });
   }
 
   updateCurrentPage(state: PageState) {
     log.debug('updateCurrentPage: ', state.currentPage + 1);
-    this.pageSubject$.next(state);
+    this.pageSubject$.next({
+      ...state,
+      eventType: 'changedPage'
+    });
   }
 
-  updateSizeOfPage(sizeOfPage: number) {
-    log.debug('updateSizeOfPage: ', sizeOfPage);
-    // this.pageSubject$.next({
-    //   sizeOfPage
-    // });
+  updateSizeOfPage(state: PageState) {
+    log.debug('updateSizeOfPage: ', state.sizeOfPage, 'reset page:', state);
+    setTimeout(() => {
+      this.pageSubject$.next({
+        ...state,
+        eventType: 'changedSize'
+      });
+    }, 0);
   }
 }

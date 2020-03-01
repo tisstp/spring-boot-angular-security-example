@@ -14,7 +14,7 @@ const log = new Logger('DatatableFooter');
 })
 export class DatatableFooterComponent implements OnInit, OnDestroy {
   maxSizePage: number;
-  currentPage: number;
+  currentPagination: number;
   isBoundaryLinks: boolean;
   page: PageState;
 
@@ -22,10 +22,13 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
 
   constructor(private datatableService: DatatableService) {
     this.maxSizePage = datatableService.maxSizePage;
+    this.currentPagination = 1;
     this.subscribePageState();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.page = this.datatableService.initialPageState();
+  }
 
   ngOnDestroy(): void {
     if (this.pageSubscription) {
@@ -34,17 +37,19 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged(pageChanged: PageChangedEvent) {
-    this.datatableService.updateCurrentPage({
-      ...this.page,
-      currentPage: pageChanged.page - 1
-    });
+    if (this.page.eventType !== 'changedSize') {
+      this.datatableService.updateCurrentPage({
+        ...this.page,
+        currentPage: pageChanged.page - 1
+      });
+    }
   }
 
   private subscribePageState() {
     this.pageSubscription = this.datatableService.pageState$.subscribe(state => {
-      log.debug('subscribe: page', state);
       this.page = { ...state };
-      this.currentPage = this.page.currentPage;
+      const currentPageForPagination = this.datatableService.isStartPageAtZero ? 1 : 0;
+      this.currentPagination = this.page.currentPage + currentPageForPagination;
       this.isBoundaryLinks = this.page.totalPages > this.maxSizePage;
     });
   }
