@@ -47,7 +47,7 @@ export class DatatableService {
   }
 
   updateCurrentPage(currentPage: number) {
-    log.debug('updateCurrentPage: ', currentPage);
+    log.debug('updateCurrentPage: ', currentPage, this.pageState);
     this.pageSubject$.next({
       ...this.pageState,
       currentPage

@@ -15,6 +15,7 @@
         [totalItems]="page.totalElements"
         [itemsPerPage]="page.sizeOfPage"
         [maxSize]="maxSizePage"
+        (pageChanged)="onPageChanged($event)"
         previousText="&lsaquo;"
         nextText="&rsaquo;"
         firstText="&laquo;"

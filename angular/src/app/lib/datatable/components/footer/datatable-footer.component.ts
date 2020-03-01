@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from '@shared/classes';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Subscription } from 'rxjs';
 import { PageState } from 'src/app/lib/datatable/models/page-state';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
@@ -30,6 +31,10 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
     if (this.pageSubscription) {
       this.pageSubscription.unsubscribe();
     }
+  }
+
+  onPageChanged(pageChanged: PageChangedEvent) {
+    this.datatableService.updateCurrentPage(pageChanged.page - 1);
   }
 
   private subscribePageState() {
