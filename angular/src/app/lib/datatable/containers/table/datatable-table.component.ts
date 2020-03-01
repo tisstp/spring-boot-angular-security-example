@@ -94,9 +94,24 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     const checkboxAll = this.checkboxForm.get('checkboxAll');
     this.checkboxItemAll(checkboxAll.value);
     if (checkboxAll.value) {
+      // selected
       this.checkboxSelected.push(...this.data.content);
     } else {
+      // unselected
       this.checkboxSelected = [];
+    }
+    this.selected.emit(this.checkboxSelected);
+  }
+
+  checkboxItemChanged(index: number, item: any) {
+    const val = this.checkboxItems.at(index);
+    if (val.value) {
+      // selected
+      this.checkboxSelected.push(item);
+    } else {
+      // unselected
+      const indexInArr = this.checkboxSelected.indexOf(item);
+      this.checkboxSelected.splice(indexInArr, 1);
     }
     this.selected.emit(this.checkboxSelected);
   }

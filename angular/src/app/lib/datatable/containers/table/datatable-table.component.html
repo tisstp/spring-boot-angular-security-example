@@ -69,7 +69,7 @@
                   [ngStyle]="col.bodyStyle || col.style"
                   [ngClass]="col.bodyStyleClass || col.styleClass"
                 >
-                  <input type="checkbox" class="form-control" [formControlName]="id" />
+                  <input type="checkbox" class="form-control" [formControlName]="id" (change)="checkboxItemChanged(id, item)" />
                 </th>
 
                 <!-- default: show content number record -->
