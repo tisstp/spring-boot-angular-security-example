@@ -23,7 +23,6 @@ export class ColumnSortingDirective implements OnInit {
   @HostListener('click')
   onClickSortColumn() {
     if (this.sortable) {
-      console.log('Click Column: ' + this.field);
       if (this.sortTypeCurrent === SortEnum.NONE) {
         this.setSortingToAsc();
       } else if (this.sortTypeCurrent === SortEnum.ASC) {

@@ -19,6 +19,7 @@ export class DatatableDemoComponent extends DatatableSearchEvent<User> implement
   }
 
   searchOnDatatable(pageReq: PageRequest): Observable<PageResponse<User>> {
+    // todo: writing send param sorting.
     return this.exampleDatatableService.getPageUser(pageReq.page, pageReq.size);
   }
 
