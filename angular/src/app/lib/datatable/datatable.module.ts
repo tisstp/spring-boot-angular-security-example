@@ -12,6 +12,7 @@ import { DatatableColumnComponent } from './containers/column/datatable-column.c
 import { DatatableTableComponent } from './containers/table/datatable-table.component';
 import { TableTemplateDirective } from './containers/template/table-template.directive';
 import { RecordNoPagingPipe } from './pipes/record-no-paging.pipe';
+import { ShowingItemsPipe } from './pipes/showing-items.pipe';
 
 // prettier-ignore
 @NgModule({
@@ -22,6 +23,7 @@ import { RecordNoPagingPipe } from './pipes/record-no-paging.pipe';
     DatatableFooterComponent,
     TableTemplateDirective,
     RecordNoPagingPipe,
+    ShowingItemsPipe,
   ],
   imports: [
     CommonModule,

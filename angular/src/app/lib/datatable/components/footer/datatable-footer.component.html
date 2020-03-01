@@ -1,7 +1,7 @@
 <div class="row">
   <!-- region showing {start} to {end} of {total} items -->
   <div class="col-sm text-left my-2">
-    showing 21 to 30 of 55 items
+    {{ page | showingItems }}
   </div>
   <!-- endregion -->
 
@@ -9,10 +9,10 @@
   <div class="col-sm my-2">
     <div class="float-md-right">
       <pagination
+        class="mx-auto"
         [(ngModel)]="currentPage"
         [boundaryLinks]="isBoundaryLinks"
         [totalItems]="page.totalElements"
-        class="mx-auto"
         [itemsPerPage]="page.sizeOfPage"
         [maxSize]="maxSizePage"
         previousText="&lsaquo;"
