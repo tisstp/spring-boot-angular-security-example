@@ -6,3 +6,22 @@
   left: 0;
   background-color: rgba(200, 200, 200, 0.2);
 }
+
+thead {
+  th {
+    &.sorting {
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position: center right;
+    }
+    &.sorting-none {
+      background-image: url("src/app/lib/datatable/assets/sort_both.png");
+    }
+    &.sorting-asc {
+      background-image: url("src/app/lib/datatable/assets/sort_asc.png");
+    }
+    &.sorting-desc {
+      background-image: url("src/app/lib/datatable/assets/sort_desc.png");
+    }
+  }
+}

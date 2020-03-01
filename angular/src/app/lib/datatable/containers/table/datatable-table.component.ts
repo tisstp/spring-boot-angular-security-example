@@ -1,11 +1,23 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Logger } from '@shared/classes';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SortEnum } from 'src/app/lib/datatable/models/datatable-enum';
 import { DatatableColumnComponent } from 'src/app/lib/datatable/containers/column/datatable-column.component';
 import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-template';
-import { PageRequest, PageResponse } from 'src/app/lib/datatable/models/datatable-model';
+import { ColumnSortingDirective } from 'src/app/lib/datatable/directive/column-sorting.directive';
+import { PageRequest, PageResponse, SortColumn } from 'src/app/lib/datatable/models/datatable-model';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
 const log = new Logger('Datatable');
@@ -55,6 +67,12 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
   // for setting column
   @ContentChildren(DatatableColumnComponent) cols: QueryList<DatatableColumnComponent>;
   public columns: DatatableColumnComponent[];
+
+  // for sorting
+  @Input() multipleSorting = false;
+  @ViewChildren(ColumnSortingDirective) columnSortingDirectives: QueryList<ColumnSortingDirective>;
+  public sortingColumns: ColumnSortingDirective[];
+  public sortCurrent: SortColumn;
 
   // for checkbox
   @Input() isUseCheckbox = false;
@@ -116,6 +134,27 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     this.selected.emit(this.checkboxSelected);
   }
 
+  onSorted(sortColumn: SortColumn) {
+    console.log(sortColumn);
+    if (!this.sortingColumns) {
+      this.sortingColumns = this.columnSortingDirectives.toArray();
+    }
+
+    if (this.multipleSorting) {
+      // todo: multiple sorting... coming soon...
+      console.log(this.sortingColumns);
+    } else {
+      if (!this.sortCurrent) {
+        this.sortCurrent = sortColumn;
+      } else if (this.sortCurrent.field === sortColumn.field) {
+        this.sortCurrent.type = sortColumn.type;
+      } else {
+        this.setSortingByField({ field: this.sortCurrent.field, type: 'none' });
+        this.sortCurrent = sortColumn;
+      }
+    }
+  }
+
   private initColumns() {
     this.columns = this.cols.toArray();
   }
@@ -161,5 +200,19 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
 
   private checkboxItemAll(result: boolean) {
     this.checkboxItems.patchValue(this.checkboxItems.getRawValue().map(val => result));
+  }
+
+  private setSortingByField(sortColumn: SortColumn) {
+    this.sortingColumns
+      .filter(item => item.sortable && item.field === sortColumn.field)
+      .forEach(item => {
+        if (sortColumn.type === SortEnum.NONE) {
+          item.setSortingToNone();
+        } else if (sortColumn.type === SortEnum.ASC) {
+          item.setSortingToAsc();
+        } else if (sortColumn.type === SortEnum.DESC) {
+          item.setSortingToDesc();
+        }
+      });
   }
 }

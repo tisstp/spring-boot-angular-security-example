@@ -2,14 +2,15 @@
   <datatable
     [data]="pageData"
     [isUseCheckbox]="true"
+    [multipleSorting]="false"
     [isLoading]="isDatatableLoading"
     (selected)="onDatatableSelected($event)"
     (datatableChanged)="onDatatableChanged($event)"
   >
     <datatable-column field="checkbox" styleClass="text-center"></datatable-column>
     <datatable-column headerName="No" field="recordNo" styleClass="text-center"></datatable-column>
-    <datatable-column headerName="ID" field="id"></datatable-column>
-    <datatable-column headerName="Name" field="name"></datatable-column>
-    <datatable-column headerName="Passport Number" field="passportNumber"></datatable-column>
+    <datatable-column headerName="ID" field="id" [sortable]="true"></datatable-column>
+    <datatable-column headerName="Name" field="name" [sortable]="true"></datatable-column>
+    <datatable-column headerName="Passport Number" field="passportNumber" [sortable]="true"></datatable-column>
   </datatable>
 </div>

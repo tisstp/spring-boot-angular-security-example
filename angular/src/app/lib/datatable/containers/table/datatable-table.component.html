@@ -29,8 +29,13 @@
             <th
               *ngIf="col.field != 'checkbox'"
               scope="col"
+              columnSorting
               [ngStyle]="col.headerStyle || col.style"
               [ngClass]="col.headerStyleClass || col.styleClass"
+              [class.sorting]="col.sortable"
+              [field]="col.field"
+              [sortable]="col.sortable"
+              (sort)="onSorted($event)"
             >
               {{ col.headerName }}
             </th>
@@ -113,5 +118,3 @@
 <!-- region datatable footer: pagination, total elements -->
 <datatable-footer [data]="data"></datatable-footer>
 <!-- endregion  -->
-
-{{ checkboxForm.value | json }}
