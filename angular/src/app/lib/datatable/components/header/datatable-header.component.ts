@@ -40,7 +40,7 @@ export class DatatableHeaderComponent implements OnInit, OnDestroy {
 
   onSelectedSizeOfPage(size: number) {
     this.sizeOfPage = size;
-    // todo: callback event
+    this.datatableService.updateSizeOfPage(size);
   }
 
   onSearch() {

@@ -34,7 +34,10 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged(pageChanged: PageChangedEvent) {
-    this.datatableService.updateCurrentPage(pageChanged.page - 1);
+    this.datatableService.updateCurrentPage({
+      ...this.page,
+      currentPage: pageChanged.page - 1
+    });
   }
 
   private subscribePageState() {

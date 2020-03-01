@@ -12,9 +12,9 @@ const log = new Logger('DatatableService');
 })
 export class DatatableService {
   maxSizePage: number;
+  isStartPageAtZero: boolean;
 
   private pageSubject$ = new Subject<PageState>();
-  private pageState: PageState;
 
   private readonly _sizeOfPageInit: number;
   private readonly _itemPerPageList: number[];
@@ -31,34 +31,34 @@ export class DatatableService {
     return this.pageSubject$.asObservable();
   }
 
+  get pageStartAtZero(): number {
+    return this.isStartPageAtZero ? 0 : 1;
+  }
+
   constructor(@Optional() config?: DatatableServiceConfig) {
     log.debug('config: ', config);
     if (config) {
       this._sizeOfPageInit = config.sizeOfPage;
       this._itemPerPageList = config.itemPerPageList;
       this.maxSizePage = config.maxSizePage;
+      this.isStartPageAtZero = config.isStartPageAtZero;
     }
   }
 
   updatePageState(state: PageState) {
     log.debug('updatePageState: ', state);
-    this.pageState = state;
     this.pageSubject$.next(state);
   }
 
-  updateCurrentPage(currentPage: number) {
-    log.debug('updateCurrentPage: ', currentPage, this.pageState);
-    this.pageSubject$.next({
-      ...this.pageState,
-      currentPage
-    });
+  updateCurrentPage(state: PageState) {
+    log.debug('updateCurrentPage: ', state.currentPage + 1);
+    this.pageSubject$.next(state);
   }
 
   updateSizeOfPage(sizeOfPage: number) {
     log.debug('updateSizeOfPage: ', sizeOfPage);
-    this.pageSubject$.next({
-      ...this.pageState,
-      sizeOfPage
-    });
+    // this.pageSubject$.next({
+    //   sizeOfPage
+    // });
   }
 }
