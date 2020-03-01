@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { DatatableColumnComponent } from 'src/app/lib/datatable/containers/column/datatable-column.component';
 import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-template';
 import { PageResponse } from 'src/app/lib/datatable/models/datatable-model';
+import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
 const log = new Logger('Datatable');
 
@@ -14,7 +15,7 @@ const log = new Logger('Datatable');
 })
 export class DatatableTableComponent extends TableTemplate implements OnInit, AfterContentInit, OnDestroy {
   // for style on table
-  @Input() tableContainerStyleClass? = 'table-responsive position-relative mb-3';
+  @Input() tableContainerStyleClass? = 'table-responsive position-relative mb-2';
   @Input() tableStyleClass? = 'table table-hover table-striped border-bottom mb-0';
   @Input() theadStyleClass? = 'thead-dark text-left';
   @Input() tbodyStyleClass? = 'text-left';
@@ -33,6 +34,12 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
   @Input()
   set data(value: PageResponse<any>) {
     this._data = value;
+    this.datatableService.updatePageState({
+      sizeOfPage: value.pageSize,
+      currentPage: value.pageNumber,
+      totalPages: value.totalPages,
+      totalElements: value.totalElements
+    });
   }
 
   get data(): PageResponse<any> {
@@ -41,6 +48,10 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
 
   get isHasContent(): boolean {
     return this.data ? this.data.numberOfElements > 0 : false;
+  }
+
+  constructor(private datatableService: DatatableService) {
+    super();
   }
 
   ngOnInit(): void {}

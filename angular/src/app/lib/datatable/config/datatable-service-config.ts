@@ -1,4 +1,5 @@
 export class DatatableServiceConfig {
-  sizeOfPage = 5;
-  itemPerPageList: number[] = [5, 10, 20, 50];
+  sizeOfPage?: number;
+  itemPerPageList?: number[];
+  maxSizePage?: number;
 }

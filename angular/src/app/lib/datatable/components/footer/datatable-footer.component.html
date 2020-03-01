@@ -1,1 +1,27 @@
-<p>datatable-footer works!</p>
+<div class="row">
+  <!-- region showing {start} to {end} of {total} items -->
+  <div class="col-sm text-left my-2">
+    showing 21 to 30 of 55 items
+  </div>
+  <!-- endregion -->
+
+  <!-- region pagination -->
+  <div class="col-sm my-2">
+    <div class="float-md-right">
+      <pagination
+        [(ngModel)]="currentPage"
+        [boundaryLinks]="isBoundaryLinks"
+        [totalItems]="page.totalElements"
+        class="mx-auto"
+        [itemsPerPage]="page.sizeOfPage"
+        [maxSize]="maxSizePage"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      >
+      </pagination>
+    </div>
+  </div>
+  <!-- endregion -->
+</div>

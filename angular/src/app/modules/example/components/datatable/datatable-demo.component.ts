@@ -68,9 +68,9 @@ export class DatatableDemoComponent implements OnInit {
       ],
       numberOfElements: 10,
       pageNumber: 0,
-      pageSize: 55,
-      totalElements: 10,
-      totalPages: 1
+      pageSize: 10,
+      totalElements: 200,
+      totalPages: 20
     };
   }
 }
