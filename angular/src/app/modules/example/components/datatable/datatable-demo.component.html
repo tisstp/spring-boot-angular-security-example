@@ -1,5 +1,5 @@
 <div class="container">
-  <datatable [data]="userPage" (datatableChanged)="onChanged($event)">
+  <datatable [data]="pageData" [isLoading]="isDatatableLoading" (datatableChanged)="onDatatableChanged($event)">
     <datatable-column headerName="No" field="recordNo" styleClass="text-center"></datatable-column>
     <datatable-column headerName="ID" field="id"></datatable-column>
     <datatable-column headerName="Name" field="name"></datatable-column>

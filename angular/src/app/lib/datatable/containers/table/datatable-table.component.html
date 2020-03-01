@@ -4,6 +4,10 @@
 
 <!-- region datatable body: table container -->
 <div [ngClass]="tableContainerStyleClass">
+  <div *ngIf="isLoading" class="d-flex datatable-loading">
+    <div class="align-self-center w-100 text-center h2">Loading...</div>
+  </div>
+
   <table [ngClass]="tableStyleClass">
     <!-- region table head -->
     <thead [ngClass]="theadStyleClass">

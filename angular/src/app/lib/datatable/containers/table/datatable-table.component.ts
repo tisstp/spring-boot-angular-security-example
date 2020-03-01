@@ -23,6 +23,7 @@ export class DatatableTableComponent extends TableTemplate implements OnInit, Af
 
   // for message
   @Input() messageNoContent? = 'No Content!';
+  @Input() isLoading = false;
 
   @Output() datatableChanged: EventEmitter<PageRequest> = new EventEmitter<PageRequest>();
 
