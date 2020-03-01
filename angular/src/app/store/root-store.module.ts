@@ -38,12 +38,12 @@ import { metaReducers, reducers } from 'src/app/store/reducers';
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
      */
-    StoreRouterConnectingModule.forRoot({
+    /*StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal,
 
-      /** action to be dispatched after guards and resolvers successfully ran and the new route will be activated. */
+      /!** action to be dispatched after guards and resolvers successfully ran and the new route will be activated. *!/
       navigationActionTiming: NavigationActionTiming.PostActivation
-    }),
+    }),*/
 
     /**
      * EffectsModule.forRoot() is imported once in the root module and
