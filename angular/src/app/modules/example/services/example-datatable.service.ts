@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { ApiEndpointsService, ApiHttpService } from 'src/app/core/services';
-import { PageRequest, PageResponse } from 'src/app/lib/datatable/models/datatable-model';
+import { DatatableRequest, PageResponse } from 'src/app/lib/datatable/models/datatable-model';
 import { User } from 'src/app/modules/example/models/user';
 
 @Injectable({
@@ -77,7 +77,9 @@ export class ExampleDatatableService {
     }).pipe(delay(1000));
   }
 
-  getPageUserFromServer(page: PageRequest, search: string): Observable<PageResponse<User>> {
-    return this.apiHttpService.post<PageResponse<User>>(this.apiEndpointsService.getPageUserEndpoint(page), search);
+  getPageUserFromServer(request: DatatableRequest): Observable<PageResponse<User>> {
+    return this.apiHttpService.post<PageResponse<User>>(this.apiEndpointsService.getPageUserEndpoint(request.page), {
+      name: request.search
+    });
   }
 }

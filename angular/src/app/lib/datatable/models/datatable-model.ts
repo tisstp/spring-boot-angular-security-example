@@ -25,3 +25,8 @@ export interface PageResponse<T> {
   totalElements: number;
   totalPages: number;
 }
+
+export interface DatatableRequest {
+  page: PageRequest;
+  search?: string;
+}

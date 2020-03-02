@@ -17,8 +17,9 @@ import { DatatableColumnComponent } from 'src/app/lib/datatable/containers/colum
 import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-template';
 import { ColumnSortingDirective } from 'src/app/lib/datatable/directive/column-sorting.directive';
 import { SortEnum } from 'src/app/lib/datatable/models/datatable-enum';
-import { PageRequest, PageResponse, SortColumn } from 'src/app/lib/datatable/models/datatable-model';
+import { DatatableRequest, PageRequest, PageResponse, SortColumn } from 'src/app/lib/datatable/models/datatable-model';
 import { PageState } from 'src/app/lib/datatable/models/page-state';
+import { DatatableSearchService } from 'src/app/lib/datatable/services/datatable-search.service';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
 const log = new Logger('Datatable');
@@ -76,8 +77,9 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
   @Input() messageNoContent? = 'No Content!';
   @Input() isLoading = false;
 
-  @Output() datatableChanged: EventEmitter<PageRequest> = new EventEmitter<PageRequest>();
+  @Output() datatableChanged: EventEmitter<DatatableRequest> = new EventEmitter<DatatableRequest>();
   public pageRequest: PageRequest;
+  public searchRequest: string;
 
   // for setting column
   @ContentChildren(DatatableColumnComponent) cols: QueryList<DatatableColumnComponent>;
@@ -102,7 +104,7 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
   private columnsSubscription: Subscription;
   private pageSubscription: Subscription;
 
-  constructor(private datatableService: DatatableService) {
+  constructor(private datatableService: DatatableService, private datatableSearchService: DatatableSearchService) {
     super();
     this.subscribePageState();
   }
@@ -182,16 +184,26 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
   }
 
   private subscribePageState() {
+    // prettier-ignore
     this.pageSubscription = this.datatableService.pageState$
-      .pipe(merge(this.sortColumnSubject$.asObservable()), debounceTime(this.datatableService.config.debounceTime))
-      .subscribe((state: PageState | SortColumn[]) => {
+      .pipe(
+        merge(
+          this.sortColumnSubject$.asObservable(),
+          this.datatableSearchService.search$
+        ),
+        debounceTime(this.datatableService.config.debounceTime)
+      )
+      .subscribe((state: PageState | SortColumn[] | string) => {
         log.debug('subscribe: page', state);
         if (state instanceof Array) {
           this.pageRequest = {
             ...this.pageRequest,
             sort: state
           };
-          this.datatableChanged.emit(this.pageRequest);
+          this.outputDatatableChanged();
+        } else if (typeof state === 'string') {
+          this.searchRequest = state;
+          this.outputDatatableChanged();
         } else {
           if (state.eventType === 'changedPage' || state.eventType === 'changedSize') {
             this.pageRequest = {
@@ -199,10 +211,18 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
               page: state.currentPage,
               size: state.sizeOfPage
             };
-            this.datatableChanged.emit(this.pageRequest);
+            this.outputDatatableChanged();
           }
         }
       });
+  }
+
+  private outputDatatableChanged() {
+    const request: DatatableRequest = {
+      page: this.pageRequest,
+      search: this.searchRequest
+    };
+    this.datatableChanged.emit(request);
   }
 
   private initCheckboxForm() {

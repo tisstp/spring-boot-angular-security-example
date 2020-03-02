@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from '@shared/classes';
 import { Subscription } from 'rxjs';
 import { PageState } from 'src/app/lib/datatable/models/page-state';
+import { DatatableSearchService } from 'src/app/lib/datatable/services/datatable-search.service';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
 const log = new Logger('DatatableHeader');
@@ -19,7 +20,7 @@ export class DatatableHeaderComponent implements OnInit, OnDestroy {
 
   private pageSubscription: Subscription;
 
-  constructor(private datatableService: DatatableService) {
+  constructor(private datatableService: DatatableService, private datatableSearchService: DatatableSearchService) {
     this.sizeOfPage = datatableService.sizeOfPageInit;
     this.itemPerPageList = datatableService.itemPerPageList;
     this.subscribePageState();
@@ -52,7 +53,7 @@ export class DatatableHeaderComponent implements OnInit, OnDestroy {
 
   onSearch() {
     log.debug(this.searchText);
-    // todo: callback event
+    this.datatableSearchService.onSearch(this.searchText);
   }
 
   private subscribePageState() {

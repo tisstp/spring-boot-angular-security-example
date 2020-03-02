@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DatatableSearchEvent, PageRequest, PageResponse } from 'src/app/lib/datatable';
+import { DatatableRequest, DatatableSearchEvent, PageRequest, PageResponse } from 'src/app/lib/datatable';
 import { User } from 'src/app/modules/example/models/user';
 import { ExampleDatatableService } from 'src/app/modules/example/services/example-datatable.service';
 
@@ -18,13 +18,12 @@ export class DatatableDemoComponent extends DatatableSearchEvent<User> implement
     this.onDatatableChanged();
   }
 
-  searchOnDatatable(pageReq: PageRequest): Observable<PageResponse<User>> {
+  searchOnDatatable(request: DatatableRequest): Observable<PageResponse<User>> {
     // on mocking.
     // return this.exampleDatatableService.getPageUser(pageReq.page, pageReq.size);
 
     // on server
-    const searchStr = '';
-    return this.exampleDatatableService.getPageUserFromServer(pageReq, searchStr);
+    return this.exampleDatatableService.getPageUserFromServer(request);
   }
 
   onDatatableSelected(selected: User[]) {
