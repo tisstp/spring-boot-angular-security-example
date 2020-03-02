@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Logger } from '@shared/classes/logger';
 import { CookieService } from 'ngx-cookie-service';
@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
 
 const log = new Logger('XsrfInterceptor');
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class XsrfInterceptor implements HttpInterceptor {
   constructor(private tokenExtractor: HttpXsrfTokenExtractor, private cookieService: CookieService) {}
 
