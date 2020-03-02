@@ -37,6 +37,11 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
         sizeOfPage: value.pageSize,
         currentPage: value.pageNumber
       });
+      this.pageRequest = {
+        ...this.pageRequest,
+        size: value.pageSize,
+        page: value.pageNumber
+      };
       this.addCheckboxItemForm();
     }
   }
@@ -190,6 +195,7 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
         } else {
           if (state.eventType === 'changedPage' || state.eventType === 'changedSize') {
             this.pageRequest = {
+              ...this.pageRequest,
               page: state.currentPage,
               size: state.sizeOfPage
             };
