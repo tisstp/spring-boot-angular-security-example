@@ -55,6 +55,10 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     return this.data ? this.data.numberOfElements > 0 : false;
   }
 
+  get checkboxAll(): FormControl {
+    return this.checkboxForm.get('checkboxAll') as FormControl;
+  }
+
   get checkboxItems(): FormArray {
     return this.checkboxForm.get('checkboxItems') as FormArray;
   }
@@ -127,9 +131,8 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
   }
 
   checkboxAllChanged() {
-    const checkboxAll = this.checkboxForm.get('checkboxAll');
-    this.checkboxItemAll(checkboxAll.value);
-    if (checkboxAll.value) {
+    this.checkboxItemAll(this.checkboxAll.value);
+    if (this.checkboxAll.value) {
       // selected
       this.checkboxSelected.push(...this.data.content);
     } else {
@@ -149,6 +152,7 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
       const indexInArr = this.checkboxSelected.indexOf(item);
       this.checkboxSelected.splice(indexInArr, 1);
     }
+    this.setCheckboxAllByItemAllSelected();
     this.selected.emit(this.checkboxSelected);
   }
 
@@ -245,6 +249,12 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
 
   private checkboxItemAll(result: boolean) {
     this.checkboxItems.patchValue(this.checkboxItems.getRawValue().map(val => result));
+  }
+
+  private setCheckboxAllByItemAllSelected() {
+    const countItemAll = this.checkboxItems.length;
+    const countItemSelected = this.checkboxSelected.length;
+    this.checkboxAll.patchValue(countItemAll === countItemSelected);
   }
 
   private setSortingByField(sortColumn: SortColumn) {
