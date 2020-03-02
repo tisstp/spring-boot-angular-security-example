@@ -53,6 +53,14 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     return this.checkboxForm.get('checkboxItems') as FormArray;
   }
 
+  get pageStartAtZero(): number {
+    return this.datatableService.pageStartAtZero;
+  }
+
+  get sizeOfPageInit(): number {
+    return this.datatableService.sizeOfPageInit;
+  }
+
   // for style on table
   @Input() tableContainerStyleClass? = 'table-responsive position-relative mb-2';
   @Input() tableStyleClass? = 'table table-hover table-striped border-bottom mb-0';

@@ -42,6 +42,7 @@ export class DatatableService {
       this.maxSizePage = config.maxSizePage;
       this.isStartPageAtZero = config.isStartPageAtZero;
     }
+    console.log(config);
   }
 
   initialPageState(): PageState {

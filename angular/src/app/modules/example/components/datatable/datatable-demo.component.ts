@@ -15,12 +15,16 @@ export class DatatableDemoComponent extends DatatableSearchEvent<User> implement
   }
 
   ngOnInit(): void {
-    this.onDatatableChanged({ page: 0, size: 10 });
+    this.onDatatableChanged();
   }
 
   searchOnDatatable(pageReq: PageRequest): Observable<PageResponse<User>> {
-    // todo: writing send param sorting.
-    return this.exampleDatatableService.getPageUser(pageReq.page, pageReq.size);
+    // on mocking.
+    // return this.exampleDatatableService.getPageUser(pageReq.page, pageReq.size);
+
+    // on server
+    const searchStr = '';
+    return this.exampleDatatableService.getPageUserFromServer(pageReq, searchStr);
   }
 
   onDatatableSelected(selected: User[]) {

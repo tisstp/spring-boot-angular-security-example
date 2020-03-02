@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { ApiEndpointsService, ApiHttpService } from 'src/app/core/services';
-import { PageResponse } from 'src/app/lib/datatable/models/datatable-model';
+import { PageRequest, PageResponse } from 'src/app/lib/datatable/models/datatable-model';
 import { User } from 'src/app/modules/example/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExampleDatatableService {
-  constructor(private apiHttpService: ApiHttpService, private apiEndpointsService: ApiEndpointsService) {}
+  // prettier-ignore
+  constructor(
+    private apiHttpService: ApiHttpService,
+    private apiEndpointsService: ApiEndpointsService
+  ) {}
 
   getPageUser(page: number, size: number): Observable<PageResponse<User>> {
     return of({
@@ -71,5 +75,9 @@ export class ExampleDatatableService {
       totalElements: 200,
       totalPages: Number((200 / size).toFixed(2))
     }).pipe(delay(1000));
+  }
+
+  getPageUserFromServer(page: PageRequest, search: string): Observable<PageResponse<User>> {
+    return this.apiHttpService.post<PageResponse<User>>(this.apiEndpointsService.getPageUserEndpoint(page), search);
   }
 }
