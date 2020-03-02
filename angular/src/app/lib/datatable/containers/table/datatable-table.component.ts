@@ -44,6 +44,8 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
         page: value.pageNumber
       };
       this.addCheckboxItemForm();
+      this.checkboxAll.patchValue(false);
+      this.checkboxSelected = [];
     }
   }
 
@@ -134,7 +136,8 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     this.checkboxItemAll(this.checkboxAll.value);
     if (this.checkboxAll.value) {
       // selected
-      this.checkboxSelected.push(...this.data.content);
+      const items = this.data.content.filter(item => !this.checkboxSelected.includes(item));
+      this.checkboxSelected.push(...items);
     } else {
       // unselected
       this.checkboxSelected = [];
