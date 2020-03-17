@@ -37,6 +37,6 @@ export class ShowingItemsPipe implements PipeTransform {
   }
 
   private formatNumber(val: number): string {
-    return this.decimalPipe.transform(val, '0.0-0');
+    return this.decimalPipe.transform(val, '1.0-0');
   }
 }

@@ -79,10 +79,10 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
   }
 
   // for style on table
-  @Input() tableContainerStyleClass? = 'cm-table table-responsive position-relative mb-2';
+  @Input() tableContainerStyleClass? = 'table-responsive position-relative mb-2';
   @Input() tableStyleClass? = 'table table-hover table-striped border-bottom mb-0';
-  @Input() theadStyleClass? = 'bg-claim text-white';
-  @Input() tbodyStyleClass? = 'text-claim';
+  @Input() theadStyleClass? = 'thead-dark text-left';
+  @Input() tbodyStyleClass? = 'text-left';
 
   // for message
   @Input() messageNoContent? = 'No Content!';

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -39,7 +39,10 @@ import { ColumnSortingDirective } from './directive/column-sorting.directive';
     DatatableTableComponent,
     DatatableColumnComponent,
     TableTemplateDirective
-  ]
+  ],
+  providers: [
+    DecimalPipe
+  ],
 })
 export class DatatableModule {
 
