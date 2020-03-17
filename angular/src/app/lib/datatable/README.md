@@ -91,9 +91,11 @@ let userPage = {
   ></datatable-column>
 
   <ng-template tableTemplate="header" let-columns>
-    <ng-container *ngFor="let col of columns">
-      <th scope="col" class="text-center">{{ col.headerName }}</th>
-    </ng-container>
+    <tr>
+      <ng-container *ngFor="let col of columns">
+        <th scope="col" class="text-center">{{ col.headerName }}</th>
+      </ng-container>
+    </tr>
   </ng-template>
 
   <ng-template tableTemplate="body" let-columns let-data="data">
