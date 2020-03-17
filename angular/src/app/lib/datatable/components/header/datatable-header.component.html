@@ -1,7 +1,7 @@
 <div class="row">
   <!-- region size show item per page -->
   <div class="col-sm text-left my-2">
-    <div class="btn-group" dropdown>
+    <div class="btn-group" dropdown [isDisabled]="isDisabled">
       <button
         id="button-size-per-page"
         dropdownToggle
@@ -21,11 +21,11 @@
   <!-- endregion -->
 
   <!-- region search text box -->
-  <div class="col-sm my-2">
+  <div *ngIf="showSearch" class="col-sm my-2">
     <div class="input-group float-md-right">
       <input type="text" class="form-control" [(ngModel)]="searchText" />
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">search</button>
+        <button class="btn btn-outline-secondary" type="button" (click)="btnSearch()">search</button>
       </div>
     </div>
   </div>

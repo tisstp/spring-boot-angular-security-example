@@ -1,11 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Logger } from '@shared/classes';
-import { Subscription } from 'rxjs';
-import { PageState } from 'src/app/lib/datatable/models/page-state';
-import { DatatableSearchService } from 'src/app/lib/datatable/services/datatable-search.service';
+import { Component, OnDestroy, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
-
-const log = new Logger('DatatableHeader');
 
 @Component({
   selector: 'datatable-header',
@@ -13,28 +7,25 @@ const log = new Logger('DatatableHeader');
   styleUrls: ['./datatable-header.component.scss']
 })
 export class DatatableHeaderComponent implements OnInit, OnDestroy {
+  @Input() showSearch;
+  @Input() isDisabled = false;
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onChangedSizeOfPage: EventEmitter<number> = new EventEmitter<number>();
+
   sizeOfPage: number;
   itemPerPageList: number[];
   searchText: string;
-  page: PageState;
 
-  private pageSubscription: Subscription;
-
-  constructor(private datatableService: DatatableService, private datatableSearchService: DatatableSearchService) {
+  constructor(private datatableService: DatatableService) {
     this.sizeOfPage = datatableService.sizeOfPageInit;
     this.itemPerPageList = datatableService.itemPerPageList;
-    this.subscribePageState();
   }
 
-  ngOnInit(): void {
-    this.page = this.datatableService.initialPageState();
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-    if (this.pageSubscription) {
-      this.pageSubscription.unsubscribe();
-    }
-  }
+  ngOnDestroy(): void {}
 
   trackByFn(index: number, item: any) {
     return item;
@@ -43,22 +34,11 @@ export class DatatableHeaderComponent implements OnInit, OnDestroy {
   onSelectedSizeOfPage(size: number) {
     if (this.sizeOfPage !== size) {
       this.sizeOfPage = size;
-      this.datatableService.updateSizeOfPage({
-        ...this.page,
-        currentPage: this.datatableService.pageStartAtZero,
-        sizeOfPage: size
-      });
+      this.onChangedSizeOfPage.emit(size);
     }
   }
 
-  onSearch() {
-    log.debug(this.searchText);
-    this.datatableSearchService.onSearch(this.searchText);
-  }
-
-  private subscribePageState() {
-    this.pageSubscription = this.datatableService.pageState$.subscribe(state => {
-      this.page = { ...state };
-    });
+  btnSearch() {
+    this.onSearch.emit(this.searchText);
   }
 }

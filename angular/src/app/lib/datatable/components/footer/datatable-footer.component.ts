@@ -1,12 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Logger } from '@shared/classes';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Subscription } from 'rxjs';
 import { PageResponse } from 'src/app/lib/datatable/models/datatable-model';
-import { PageState } from 'src/app/lib/datatable/models/page-state';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
-
-const log = new Logger('DatatableFooter');
 
 @Component({
   selector: 'datatable-footer',
@@ -14,10 +10,22 @@ const log = new Logger('DatatableFooter');
   styleUrls: ['./datatable-footer.component.scss']
 })
 export class DatatableFooterComponent implements OnInit, OnDestroy {
+  @Input()
+  set isDisabled(value: boolean) {
+    setTimeout(() => {
+      this._isDisabled = value;
+    }, 0);
+  }
+  @Input() showTotalEntries;
+  @Input() showPagination;
+  @Input() sizeOfPage;
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onChangedPage: EventEmitter<number> = new EventEmitter<number>();
+
+  _isDisabled = false;
   maxSizePage: number;
   currentPagination: number;
   isBoundaryLinks: boolean;
-  page: PageState;
 
   private _data: PageResponse<any>;
 
@@ -30,6 +38,8 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
     this._data = value;
     if (this._data) {
       this.isBoundaryLinks = this._data.totalPages > this.maxSizePage;
+      const currentPageForPagination = this.datatableService.isStartPageAtZero ? 1 : 0;
+      this.currentPagination = this._data.pageNumber + currentPageForPagination;
     }
   }
 
@@ -38,12 +48,9 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
   constructor(private datatableService: DatatableService) {
     this.maxSizePage = datatableService.maxSizePage;
     this.currentPagination = 1;
-    this.subscribePageState();
   }
 
-  ngOnInit(): void {
-    this.page = this.datatableService.initialPageState();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (this.pageSubscription) {
@@ -52,19 +59,6 @@ export class DatatableFooterComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged(pageChanged: PageChangedEvent) {
-    if (this.page.eventType !== 'changedSize') {
-      this.datatableService.updateCurrentPage({
-        ...this.page,
-        currentPage: pageChanged.page - 1
-      });
-    }
-  }
-
-  private subscribePageState() {
-    this.pageSubscription = this.datatableService.pageState$.subscribe(state => {
-      this.page = { ...state };
-      const currentPageForPagination = this.datatableService.isStartPageAtZero ? 1 : 0;
-      this.currentPagination = this.page.currentPage + currentPageForPagination;
-    });
+    this.onChangedPage.emit(pageChanged.page - (this.datatableService.isStartPageAtZero ? 1 : 0));
   }
 }

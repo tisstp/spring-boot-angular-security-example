@@ -19,9 +19,15 @@ export abstract class DatatableSearchEvent<T> implements OnDestroy {
     }
     this.isDatatableLoading = true;
     this.unsubscribeDatatable();
-    this.datatableSubscription = this.searchOnDatatable(request).subscribe(data => {
-      this.responseFromSearchOnDatatable(data);
-    });
+    this.datatableSubscription = this.searchOnDatatable(request).subscribe(
+      data => {
+        this.responseFromSearchOnDatatable(data);
+      },
+      error => {
+        this.isDatatableLoading = false;
+        console.error(error);
+      }
+    );
   }
 
   abstract searchOnDatatable(request: DatatableRequest): Observable<PageResponse<T>>;
@@ -31,6 +37,10 @@ export abstract class DatatableSearchEvent<T> implements OnDestroy {
   responseFromSearchOnDatatable(data: PageResponse<T>): void {
     this.pageData = data;
     this.isDatatableLoading = false;
+  }
+
+  clearPageData() {
+    this.pageData = null;
   }
 
   private unsubscribeDatatable() {

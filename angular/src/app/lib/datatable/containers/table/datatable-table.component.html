@@ -1,5 +1,10 @@
 <!-- region datatable header: search, size show item -->
-<datatable-header></datatable-header>
+<datatable-header
+  [showSearch]="showSearch"
+  [isDisabled]="isDisabled"
+  (onSearch)="onSearch($event)"
+  (onChangedSizeOfPage)="onChangedSizeOfPage($event)"
+></datatable-header>
 <!-- endregion  -->
 
 <!-- region datatable body: table container -->
@@ -22,7 +27,7 @@
               [ngStyle]="col.headerStyle || col.style || { width: '50px' }"
               [ngClass]="col.headerStyleClass || col.styleClass"
             >
-              <input type="checkbox" class="form-control" formControlName="checkboxAll" (change)="checkboxAllChanged()" />
+              <input type="checkbox" class="form-control" formControlName="checkboxPageAll" (change)="checkboxPageAllChanged()" />
             </th>
 
             <!-- default: normal -->
@@ -63,7 +68,7 @@
       </tr>
 
       <ng-container *ngIf="isHasContent">
-        <ng-container *ngIf="!bodyTemplate" formArrayName="checkboxItems">
+        <ng-container *ngIf="!bodyTemplate" formArrayName="checkboxPageItems">
           <tr *ngFor="let item of data.content; index as id">
             <ng-container *ngFor="let col of columns">
               <!-- method 1: default -->
@@ -116,5 +121,12 @@
 <!-- endregion  -->
 
 <!-- region datatable footer: pagination, total elements -->
-<datatable-footer [data]="data"></datatable-footer>
+<datatable-footer
+  [showTotalEntries]="showTotalEntries"
+  [showPagination]="showPagination"
+  [sizeOfPage]="pageRequest?.size"
+  [data]="data"
+  [isDisabled]="isDisabled"
+  (onChangedPage)="onChangedPage($event)"
+></datatable-footer>
 <!-- endregion  -->
