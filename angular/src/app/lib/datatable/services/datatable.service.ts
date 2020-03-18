@@ -1,4 +1,6 @@
 import { Injectable, Optional } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { SortColumn } from 'src/app/lib/datatable';
 import { DatatableServiceConfig } from 'src/app/lib/datatable/config/datatable-service-config';
 import { DatatableServiceModule } from 'src/app/lib/datatable/services/datatable-service.module';
 
@@ -6,8 +8,11 @@ import { DatatableServiceModule } from 'src/app/lib/datatable/services/datatable
   providedIn: DatatableServiceModule
 })
 export class DatatableService {
-  maxSizePage: number;
-  isStartPageAtZero: boolean;
+  public maxSizePage: number;
+  public isStartPageAtZero: boolean;
+
+  public sortSource$: Observable<SortColumn>;
+  private sortSourceSubject = new Subject<SortColumn>();
 
   private readonly _sizeOfPageInit: number;
   private readonly _itemPerPageList: number[];
@@ -31,5 +36,10 @@ export class DatatableService {
       this.maxSizePage = config.maxSizePage;
       this.isStartPageAtZero = config.isStartPageAtZero;
     }
+    this.sortSource$ = this.sortSourceSubject.asObservable();
+  }
+
+  onSort(sortMeta: SortColumn) {
+    this.sortSourceSubject.next(sortMeta);
   }
 }

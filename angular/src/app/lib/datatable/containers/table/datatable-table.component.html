@@ -34,13 +34,11 @@
             <th
               *ngIf="col.field != 'checkbox'"
               scope="col"
-              columnSorting
+              [sortableColumn]="col.field"
               [ngStyle]="col.headerStyle || col.style"
               [ngClass]="col.headerStyleClass || col.styleClass"
               [class.sorting]="col.sortable"
-              [field]="col.field"
               [sortable]="col.sortable"
-              (sort)="onSorted($event)"
             >
               {{ col.headerName }}
             </th>

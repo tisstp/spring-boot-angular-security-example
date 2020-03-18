@@ -13,7 +13,7 @@ import { DatatableTableComponent } from './containers/table/datatable-table.comp
 import { TableTemplateDirective } from './containers/template/table-template.directive';
 import { RecordNoPagingPipe } from './pipes/record-no-paging.pipe';
 import { ShowingItemsPipe } from './pipes/showing-items.pipe';
-import { ColumnSortingDirective } from './directive/column-sorting.directive';
+import { SortableColumnDirective } from './directive/sortable-column.directive';
 
 // prettier-ignore
 @NgModule({
@@ -25,7 +25,7 @@ import { ColumnSortingDirective } from './directive/column-sorting.directive';
     TableTemplateDirective,
     RecordNoPagingPipe,
     ShowingItemsPipe,
-    ColumnSortingDirective,
+    SortableColumnDirective,
   ],
   imports: [
     CommonModule,
