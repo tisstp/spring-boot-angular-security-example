@@ -29,7 +29,7 @@ public abstract class RepoModeler<T> extends RepoBase<T> {
   @Override
   protected void execute() {
     try {
-      String sqlContent = sql.toString();
+      String sqlContent = sql.append(sqlCondition).toString();
       Query querySelect = entityManager.createNativeQuery(sqlContent);
       NativeQuery unwrap = querySelect.unwrap(NativeQuery.class);
       setScalars(unwrap);

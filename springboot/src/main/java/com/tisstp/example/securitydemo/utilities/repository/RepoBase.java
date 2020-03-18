@@ -24,12 +24,14 @@ public abstract class RepoBase<T> {
   protected EntityManager entityManager;
   protected Map<String, Object> parameters;
   protected StringBuilder sql;
+  protected StringBuilder sqlCondition;
 
   public RepoBase(EntityManager entityManager, StringBuilder sql) {
     this.genericType = (Class<T>) GenericTypeResolver
         .resolveTypeArgument(getClass(), RepoBase.class);
     this.entityManager = entityManager;
     this.sql = sql;
+    this.sqlCondition = new StringBuilder();
     this.parameters = new HashMap<>();
   }
 
@@ -74,9 +76,9 @@ public abstract class RepoBase<T> {
   protected abstract void setScalars(NativeQuery unwrap);
 
   protected void sqlAppend(String sqlCondition) {
-    this.sql.append(" ");
-    this.sql.append(sqlCondition.trim());
-    this.sql.append(" ");
+    this.sqlCondition.append(" ");
+    this.sqlCondition.append(sqlCondition.trim());
+    this.sqlCondition.append(" ");
   }
 
 

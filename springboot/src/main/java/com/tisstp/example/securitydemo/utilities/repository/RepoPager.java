@@ -1,6 +1,5 @@
 package com.tisstp.example.securitydemo.utilities.repository;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,22 +41,20 @@ public abstract class RepoPager<T> extends RepoBase<T> {
     this.execute();
   }
 
-  protected void setAllowOrderBy(Map<String, String> fields) {
-    // todo: implement.. default fields.
-    // fields.put("field", "table.column");
-  }
-
   @Override
   @SuppressWarnings("unchecked")
   protected void execute() {
     try {
       // region count records
+      String orderBy = removeOrderByBeforeGetCountResult(sql);
+      sql.append(sqlCondition);
       String sqlCount = "select count(*) as total from (" + sql.toString() + ") tblCount";
       Query queryCount = entityManager.createNativeQuery(sqlCount);
       setParameters(queryCount);
-      log.debug(String.format("[SQL Query] Select Count: %s", sqlCount));
-      BigInteger total = (BigInteger) queryCount.getSingleResult();
-      log.debug(String.format("[Result] Select Count: %s", total));
+      log.debug("[SQL Query] Select Count: {}", sqlCount);
+      Integer total = (Integer) queryCount.getSingleResult();
+      log.debug("[Result] Select Count: {}", total);
+      addOrderByAfterGetCountResult(sql, orderBy);
       // endregion
 
       // region content records
@@ -75,20 +72,56 @@ public abstract class RepoPager<T> extends RepoBase<T> {
         querySelect.setMaxResults(pageable.getPageSize());
       }
 
-      log.debug(String.format("[SQL Query] Select Content: %s", sqlContent));
+      log.debug("[SQL Query] Select Content: {}", sqlContent);
       List<T> contents = querySelect.getResultList();
-      log.debug(String.format("[Content] Size: %s", contents.size()));
+      log.debug("[Content] Size: {}", contents.size());
       page = new PageImpl<>(contents, pageable, total.longValue());
     } catch (PersistenceException ex) {
       log.error(String.format("An error occurred: %s, Stack trace is:", ex.getMessage()), ex);
     }
   }
 
+  private void addOrderByAfterGetCountResult(StringBuilder sql, String orderBy) {
+    sql.append(orderBy);
+  }
+
+  private String removeOrderByBeforeGetCountResult(StringBuilder sql) {
+    if (!checkAppendOrderBy()) {
+      int index = sql.lastIndexOf("ORDER BY");
+      if (index == -1) {
+        index = sql.lastIndexOf("order by");
+      }
+      if (index == -1) {
+        index = sql.lastIndexOf("ORDER by");
+      }
+      if (index == -1) {
+        index = sql.lastIndexOf("order BY");
+      }
+      this.sql = new StringBuilder(sql.substring(0, index));
+      return sql.substring(index);
+    }
+    return " ";
+  }
+
+  public Page<T> getPage() {
+    log.debug("Get Page");
+    return page;
+  }
+
+  protected void setAllowOrderBy(Map<String, String> fields) {
+    // todo: implement.. default fields.
+    // fields.put("field", "table.column");
+  }
+
   private String setOrderByFromSortColumn() {
     String sqlNew;
     Sort sort = pageable.getSort();
     if (sort.isSorted() && fields != null && !fields.isEmpty()) {
-      checkAppendOrderBy();
+      if (checkAppendOrderBy()) {
+        sql.append(" ORDER BY ");
+      } else {
+        sql.append(", ");
+      }
       sort.get().forEach(order -> {
         if (fields.containsKey(order.getProperty())) {
           String field = fields.get(order.getProperty());
@@ -105,25 +138,15 @@ public abstract class RepoPager<T> extends RepoBase<T> {
     return sqlNew;
   }
 
-  private void checkAppendOrderBy() {
-    if (sql.lastIndexOf("ORDER BY") == -1
-      && sql.lastIndexOf("order by") == -1
-      && sql.lastIndexOf("ORDER by") == -1
-      && sql.lastIndexOf("order BY") == -1
-    ) {
-      sql.append(" ORDER BY ");
-    } else {
-      sql.append(", ");
-    }
-  }
-
-  public Page<T> getPage() {
-    log.debug("Get Page");
-    return page;
-  }
-
   protected void setPageable(Pageable pageable) {
     this.pageable = pageable != null ? pageable : Pageable.unpaged();
+  }
+
+  private boolean checkAppendOrderBy() {
+    return sql.lastIndexOf("ORDER BY") == -1
+      && sql.lastIndexOf("order by") == -1
+      && sql.lastIndexOf("ORDER by") == -1
+      && sql.lastIndexOf("order BY") == -1;
   }
 
 }
