@@ -21,10 +21,10 @@ export class DatatableDemoComponent extends DatatableSearchEvent<User> implement
   searchOnDatatable(request: DatatableRequest): Observable<PageResponse<User>> {
     console.log(request?.page, request?.page?.sort);
     // on mocking.
-    return this.exampleDatatableService.getPageUser(request?.page?.page, request?.page?.size);
+    // return this.exampleDatatableService.getPageUser(request?.page?.page, request?.page?.size);
 
     // on server
-    // return this.exampleDatatableService.getPageUserFromServer(request);
+    return this.exampleDatatableService.getPageUserFromServer(request);
   }
 
   onDatatableSelected(selected: User[]) {

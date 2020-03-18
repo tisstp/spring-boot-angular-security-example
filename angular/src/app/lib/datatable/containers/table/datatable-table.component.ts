@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { DatatableColumnComponent } from 'src/app/lib/datatable/containers/column/datatable-column.component';
 import { TableTemplate } from 'src/app/lib/datatable/containers/template/table-template';
+import { SortEnum } from 'src/app/lib/datatable/models/datatable-enum';
 import { DatatableRequest, PageRequest, PageResponse, SortColumn } from 'src/app/lib/datatable/models/datatable-model';
 import { DatatableService } from 'src/app/lib/datatable/services/datatable.service';
 
@@ -174,8 +175,6 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     } else {
       this.sortSingle(evt.sortColumn);
     }
-    // todo: input multiple sorting.
-    this.sortColumnSubject$.next([this.sortCurrent]);
   }
 
   sortSingle(sortColumn: SortColumn) {
@@ -184,7 +183,18 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     } else {
       this.sortCurrent = sortColumn;
     }
+
+    this.onSort();
     this.datatableService.onSort(this.sortCurrent);
+  }
+
+  onSort() {
+    // todo: input multiple sorting.
+    const list = [];
+    if (this.sortCurrent && this.sortCurrent.type != SortEnum.NONE) {
+      list.push(this.sortCurrent);
+    }
+    this.sortColumnSubject$.next(list);
   }
 
   onSearch(val: string) {
