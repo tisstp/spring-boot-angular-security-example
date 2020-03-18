@@ -38,7 +38,8 @@ import { SortableColumnDirective } from './directive/sortable-column.directive';
   exports: [
     DatatableTableComponent,
     DatatableColumnComponent,
-    TableTemplateDirective
+    TableTemplateDirective,
+    SortableColumnDirective
   ],
   providers: [
     DecimalPipe

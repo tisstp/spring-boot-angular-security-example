@@ -12,5 +12,21 @@
     <datatable-column headerName="ID" field="id" [sortable]="true"></datatable-column>
     <datatable-column headerName="Name" field="name" [sortable]="true"></datatable-column>
     <datatable-column headerName="Passport Number" field="passportNumber" [sortable]="true"></datatable-column>
+
+    <ng-template tableTemplate="header" let-columns>
+      <tr>
+        <ng-container *ngFor="let col of columns">
+          <th
+            scope="col"
+            [sortableColumn]="col.field"
+            [ngStyle]="col.headerStyle || col.style"
+            [ngClass]="col.headerStyleClass || col.styleClass"
+            [sortable]="col.sortable"
+          >
+            {{ col.headerName }}
+          </th>
+        </ng-container>
+      </tr>
+    </ng-template>
   </datatable>
 </div>

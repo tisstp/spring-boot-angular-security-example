@@ -174,7 +174,8 @@ export class DatatableTableComponent extends TableTemplate implements AfterConte
     } else {
       this.sortSingle(evt.sortColumn);
     }
-    this.sortColumnSubject$.next([this.sortCurrent]); // todo: input multiple sorting.
+    // todo: input multiple sorting.
+    this.sortColumnSubject$.next([this.sortCurrent]);
   }
 
   sortSingle(sortColumn: SortColumn) {

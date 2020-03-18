@@ -74,7 +74,7 @@ export class ExampleDatatableService {
       pageSize: size,
       totalElements: 200,
       totalPages: Number((200 / size).toFixed(2))
-    }).pipe(delay(1000));
+    }).pipe(delay(100));
   }
 
   getPageUserFromServer(request: DatatableRequest): Observable<PageResponse<User>> {

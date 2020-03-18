@@ -10,8 +10,11 @@ import { SortType } from 'src/app/lib/datatable/models/datatable-types';
   selector: '[sortableColumn]'
 })
 export class SortableColumnDirective implements OnInit, OnDestroy {
+  get isEnabled(): boolean {
+    return this.sortable;
+  }
+
   @Input('sortableColumn') field: string;
-  @Input() sortableColumnDisabled: boolean;
   @Input() sortable: boolean;
 
   private sortTypeCurrent: SortType = 'none';
@@ -26,7 +29,8 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.isEnabled()) {
+    if (this.isEnabled) {
+      this.setClassSorting();
       this.setSortingToNone();
       this.subscribeSortSource();
     }
@@ -48,7 +52,7 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   onClickSortColumn(event: MouseEvent) {
-    if (this.isEnabled()) {
+    if (this.isEnabled) {
       if (this.sortTypeCurrent === SortEnum.NONE) {
         this.setSortingToAsc();
       } else if (this.sortTypeCurrent === SortEnum.ASC) {
@@ -63,12 +67,14 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
     }
   }
 
-  isEnabled(): boolean {
-    return this.sortableColumnDisabled !== true && this.sortable;
+  setClassSorting() {
+    if (this.isEnabled) {
+      this.renderer.addClass(this.el.nativeElement, 'sorting');
+    }
   }
 
   setSortingToNone() {
-    if (this.isEnabled()) {
+    if (this.isEnabled) {
       this.sortTypeCurrent = SortEnum.NONE;
       this.renderer.addClass(this.el.nativeElement, 'sorting-none');
       this.renderer.removeClass(this.el.nativeElement, 'sorting-asc');
@@ -77,7 +83,7 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
   }
 
   setSortingToAsc() {
-    if (this.isEnabled()) {
+    if (this.isEnabled) {
       this.sortTypeCurrent = SortEnum.ASC;
       this.renderer.addClass(this.el.nativeElement, 'sorting-asc');
       this.renderer.removeClass(this.el.nativeElement, 'sorting-none');
@@ -86,7 +92,7 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
   }
 
   setSortingToDesc() {
-    if (this.isEnabled()) {
+    if (this.isEnabled) {
       this.sortTypeCurrent = SortEnum.DESC;
       this.renderer.addClass(this.el.nativeElement, 'sorting-desc');
       this.renderer.removeClass(this.el.nativeElement, 'sorting-none');

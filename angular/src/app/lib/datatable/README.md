@@ -109,3 +109,23 @@ let userPage = {
 ```
 
 ![datatable-example-03-custom-in-datatable](/angular/docs/images/datatable-example-03-custom-in-datatable.png)
+
+### Example 4: Custom Header with Column Sorting
+
+```html
+<ng-template tableTemplate="header" let-columns>
+  <tr>
+    <ng-container *ngFor="let col of columns">
+      <th
+        scope="col"
+        [sortableColumn]="col.field"
+        [ngStyle]="col.headerStyle || col.style"
+        [ngClass]="col.headerStyleClass || col.styleClass"
+        [sortable]="col.sortable"
+      >
+        {{ col.headerName }}
+      </th>
+    </ng-container>
+  </tr>
+</ng-template>
+```
