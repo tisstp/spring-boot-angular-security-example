@@ -114,28 +114,24 @@ public abstract class RepoPager<T> extends RepoBase<T> {
   }
 
   private String setOrderByFromSortColumn() {
-    String sqlNew;
     Sort sort = pageable.getSort();
     if (sort.isSorted() && fields != null && !fields.isEmpty()) {
-      if (checkAppendOrderBy()) {
-        sql.append(" ORDER BY ");
-      } else {
-        sql.append(", ");
-      }
       sort.get().forEach(order -> {
         if (fields.containsKey(order.getProperty())) {
+          if (checkAppendOrderBy()) {
+            sql.append(" ORDER BY ");
+          } else {
+            sql.append(", ");
+          }
+
           String field = fields.get(order.getProperty());
           sql.append(field);
           sql.append(" ");
           sql.append(order.getDirection());
-          sql.append(", ");
         }
       });
-      sqlNew = sql.substring(0, sql.lastIndexOf(", "));
-    } else {
-      sqlNew = sql.toString();
     }
-    return sqlNew;
+    return sql.toString();
   }
 
   protected void setPageable(Pageable pageable) {
